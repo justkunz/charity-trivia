@@ -1,8 +1,12 @@
-<form class="form-horizontal" action="/questions" method="POST">
+<form class="form-horizontal" action="<%= form_action %>" method="POST">
 <fieldset>
 
 <!-- Form Name -->
 <legend><%= form_name %></legend>
+
+<% if (locals.question) { %>
+<input id="question_id" name="question_id" type="hidden" value="<%= question[0].question_id %>">
+<% } %>
 
 <!-- Textarea -->
 <div class="control-group">

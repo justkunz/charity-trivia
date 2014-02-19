@@ -13,9 +13,7 @@ app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + '/public'));
 
 // Load the home page
-app.get("/", function(req, res) {
-        res.render("index", {"title": "Charity Trivia"});
-});
+app.get("/", questions.answerQuestion);
 
 // Load the about page
 app.get("/about", function(req, res) {
@@ -29,6 +27,7 @@ app.get("/questions", questions.showQuestions);
 app.post("/questions", questions.addQuestion);
 
 app.get("/edit_question", questions.editQuestion);
+app.post("/edit_question", questions.updateQuestion);
 
 app.listen(1337);
 
