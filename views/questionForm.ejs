@@ -1,8 +1,12 @@
-<form class="form-horizontal" action="/add_questions" method="POST">
+<form class="form-horizontal" action="/questions" method="POST">
 <fieldset>
 
 <!-- Form Name -->
-<legend>Add Questions</legend>
+<legend><%= form_name %></legend>
+
+<% if (locals.question) { %>
+fill vals
+<% } %>
 
 <!-- Textarea -->
 <div class="control-group">

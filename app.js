@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 
 // Connect to the db
-var questions_table = require("./db_files/questions_table");
+var questions = require("./routes/questions");
 
 app.configure(function(){
         app.use(express.bodyParser());
@@ -23,17 +23,12 @@ app.get("/about", function(req, res) {
 });
 
 // Load the Add Questions page
-app.get("/add_questions", function(req, res) {
-        res.render("add_questions", {"title": "Charity Trivia"});
-});
+app.get("/questions", questions.showQuestions);
 
 // Handle the Add Questions form data
-app.post("/add_questions", function(req, res) {
-         // print the POST data to the console
-         console.log(req.body);
-         // insert the form data into the questions table
-         questions_table.insert(req.body);
-});
+app.post("/questions", questions.addQuestion);
+
+app.get("/edit_question", questions.editQuestion);
 
 app.listen(1337);
 

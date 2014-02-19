@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header %>
+<body>
+    <% include navbar %>
+
+    <div class="container">
+      <p></p>
+      <div class="row">
+        <div class="col-md-6">
+          <% include questionForm %>
+        </div>
+        <div class="list-group col-md-6">
+          <legend>Question List</legend>
+          <div class="list-group-item row">
+            <div class="col-md-6">Question</div>
+            <div class="col-md-2">Answer</div>
+            <div class="col-md-4">Fake Answers</div>
+          </div><!-- end question list header -->
+          <% for (var i = 0; i < questions.length; i++) { %>
+            <a href="/edit_question?question_id=<%= questions[i].question_id %>" class="list-group-item row">
+              <div class="col-md-6"><%= questions[i].question %></div>
+              <div class="col-md-2"><%= questions[i].answer %></div>
+              <div class="col-md-4"><%= questions[i].fake_answer_1 %>, <%= questions[i].fake_answer_2 %>, <%= questions[i].fake_answer_3 %></div> 
+            </a><!-- end question item row -->
+            <% } %>
+        </div><!-- end question list col -->
+      </div>
+      <hr>
+      <div class="row"
+        <% include footer %>
+      </div>
+    </div>
+    
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js">
+    </script>
+</body>
+</html>

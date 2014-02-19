@@ -4,24 +4,17 @@
 <body>
     <% include navbar %>
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <!--
-  <div class="jumbotron">
-        <div class="container">
-            <p></p>
-            <h1>Add Questions</h1>
-            <p>Add your own question for the trivia game!</p>
-    </div>
-    </div>
-  -->
-
     <div class="container">
-    <p></p>
-        <% include question_form %>
-        <hr>
-
+      <p></p>
+        <% include questionForm %>
+    <button id="delete_question" name="delete_question" class="btn btn-danger" action=/edit_question" method="DELETE">Delete Question</button>
+    <hr>
+      <div class="row"
         <% include footer %>
+      </div>
     </div>
+    
+    
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
