@@ -9,8 +9,8 @@ exports.showQuestions = function(req, res) {
 };
 
 exports.editQuestion = function(req, res) {
-  query("SELECT * FROM questions WHERE question_id=", [req.body.question_id], function(err, rows, result) {
-      res.render("edit_question", {title: "Charity Trivia", question: rows, form_name : "Edit Question"});
+  query("SELECT * FROM questions WHERE question_id=$1::int", req.param("question_id"), function(err, rows, result) {
+      res.render("edit_question", {title: "Charity Trivia", question : rows, form_name : "Edit Question"});
   });  
 };
 
@@ -21,4 +21,11 @@ exports.addQuestion = function(req, res) {
         console.log(err);
   });
   exports.showQuestions(req, res);
+};
+
+exports.answerQuestion = function(req, res) {
+  query("SELECT * FROM questions", function(err, rows, result) {
+      
+      res.render("index", {title: "Charity Trivia", question: rows[i]});
+  });
 };
