@@ -6,8 +6,30 @@
 
     <div class="container">
       <p></p>
-        <% include questionForm %>
-    <button id="delete_question" name="delete_question" class="btn btn-danger" action=/edit_question" method="DELETE">Delete Question</button>
+      
+    <form class="form-horizontal" action="/edit_question" method="POST">
+    <fieldset>
+    
+      <!-- Form Name -->
+      <legend><%= form_name %></legend>
+      
+      <!-- Include the question id -->
+      <input id="question_id" name="question_id" type="hidden" value="<%= question[0].question_id %>">
+      
+      <!-- Question Form Innards -->
+      <% include questionForm %>
+      
+      <!-- Delete Button -->
+      <div class="control-group">
+        <label class="control-label" for="delete_question"></label>
+        <div class="controls">
+          <button id="delete_question" name="delete_question" class="btn btn-danger">Delete Question</button>
+        </div>
+      </div>
+      
+    </fieldset>
+    </form>
+    
     <hr>
       <div class="row"
         <% include footer %>

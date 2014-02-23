@@ -9,7 +9,9 @@ exports.showQuestions = function(req, res) {
 };
 
 exports.editQuestion = function(req, res) {
-  query("SELECT * FROM questions WHERE question_id=$1", req.param("question_id"), function(err, rows, result) {
+  console.log(req.param("question_id"));
+  query("SELECT * FROM questions WHERE question_id=$1", [req.param("question_id")], function(err, rows, result) {
+      console.log(rows);
       res.render("edit_question", {title: "Charity Trivia", question : rows, form_name : "Edit Question", form_action : "/edit_question"});
   });  
 };
@@ -23,12 +25,24 @@ exports.addQuestion = function(req, res) {
 };
 
 exports.updateQuestion = function(req, res) {
-  console.log(req.body);
+  console.log(req.body);  
+  if (req.body.delete_question != undefined) {
+    exports.deleteQuestion(req, res);
+    return;
+  }
   query("UPDATE questions SET question=$1, answer=$2, fake_answer_1=$3, fake_answer_2=$4, fake_answer_3=$5, total_attempts=0, correct_attempts=0 WHERE question_id=$6", [req.body.question, req.body.answer, req.body.fake_answer_1, req.body.fake_answer_2, req.body.fake_answer_3, req.body.question_id], function(err, rows, result) {
         console.log(err);
+        res.redirect("/questions");
   });
-  exports.showQuestions(req, res);
 };
+
+exports.deleteQuestion = function(req, res) {
+  console.log(req.body.question_id);
+  query("DELETE FROM questions WHERE question_id=$1", [req.body.question_id], function(err, rows, result) {
+      console.log(err);
+      res.redirect("/questions");
+  });
+}
 
 exports.answerQuestion = function(req, res) {
   query("SELECT * FROM questions", function(err, rows, result) {
