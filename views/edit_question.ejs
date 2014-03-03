@@ -6,19 +6,19 @@
 
     <div class="container">
       <p></p>
-      
+
     <form class="form-horizontal" action="/edit_question" method="POST">
     <fieldset>
-    
+
       <!-- Form Name -->
       <legend><%= form_name %></legend>
-      
+
       <!-- Include the question id -->
       <input id="question_id" name="question_id" type="hidden" value="<%= question[0].question_id %>">
-      
+
       <!-- Question Form Innards -->
       <% include questionForm %>
-      
+
       <!-- Delete Button -->
       <div class="control-group">
         <label class="control-label" for="delete_question"></label>
@@ -26,24 +26,21 @@
           <button id="delete_question" name="delete_question" class="btn btn-danger">Delete Question</button>
         </div>
       </div>
-      
+
     </fieldset>
     </form>
-    
+
     <hr>
-      <div class="row"
-        <% include footer %>
-      </div>
     </div>
-    
-    
+
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js">
+    <script src="js/bootstrap.min.js">
     </script>
 </body>
 </html>
