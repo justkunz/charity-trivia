@@ -15,10 +15,6 @@ app.use(express.static(__dirname + '/public'));
 // Load the home page
 app.get("/", questions.answerQuestion);
 
-app.get("/:question_id/:answer", function(req, res) {
-  console.log("HERE");
-});
-
 // Load the about page
 app.get("/about", function(req, res) {
         res.render("about", {"title": "Charity Trivia"});
@@ -32,6 +28,8 @@ app.post("/questions", questions.addQuestion);
 
 app.get("/edit_question", questions.editQuestion);
 app.post("/edit_question", questions.updateQuestion);
+
+app.get("/update_analytics/:question_id/:correct", questions.updateQuestionAnalytics);
 
 app.listen(1337);
 

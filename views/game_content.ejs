@@ -1,12 +1,31 @@
 <script type="text/javascript" src="js/game.js"></script>
-<div class="content">
+<div class="content center-block" style="width:70%">
 
-<p><%= question.question %></p>
+<h2 class="text-center" style="color:#555555"><%= question.question %></h2>
+<br/>
 
-<a href="" onclick="answered(true); return false;"><%= question.answer %></a><br/>
-<a href="" onclick="answered(false); return false;"><%= question.fake_answer_1 %></a><br/>
-<a href="" onclick="answered(false); return false;"><%= question.fake_answer_2 %></a><br/>
-<a href="" onclick="answered(false); return false;"><%= question.fake_answer_3 %></a>
+<div class="row center-block">
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-primary center-block" onclick="answered(true, <%= question.question_id %>); return false;">
+      <%= question.answer %>
+    </button>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-primary center-block" onclick="answered(false, <%= question.question_id %>); return false;">
+      <%= question.fake_answer_1 %>
+    </button>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-primary center-block" onclick="answered(false, <%= question.question_id %>); return false;">
+      <%= question.fake_answer_2 %>
+    </button>
+  </div>
+  <div class="col-xs-3">
+    <button type="button" class="btn btn-primary center-block" onclick="answered(false, <%= question.question_id %>); return false;">
+      <%= question.fake_answer_3 %>
+    </button>
+  </div>
+</div>
 
 <br/><br/>
 <div id="feedback"></div>

@@ -6,7 +6,7 @@
 
     <div class="container">
       <br/><br/>
-      <div class="row">
+      <div class="row center-block">
         <div class="col-sm-1 col-xs-3"></div>
         <div class="col-md-3 col-sm-2 col-xs-6">
           <form class="form-horizontal" action="/questions" method="POST">
@@ -16,7 +16,7 @@
             
             <!-- The question form template -->
             <div style="">
-              <% include questionForm %>
+              <% include questionFormTemplate %>
             </div>
             
           </fieldset>
@@ -29,13 +29,13 @@
         <!-- Questions List -->
         <div class="list-group col-md-7 col-sm-7">
           <legend>Question List</legend>
-          <div class="list-group-item row" style="margin-left:0; margin-right:0">
+          <div class="list-group-item row center-block">
             <div class="col-xs-5">Question</div>
             <div class="col-xs-3">Answer</div>
             <div class="col-xs-4">Fake Answers</div>
           </div><!-- end question list header -->
           <% for (var i = 0; i < questions.length; i++) { %>
-            <a href="/edit_question?question_id=<%= questions[i].question_id %>" class="list-group-item row" style="margin-left:0; margin-right:0">
+            <a href="/edit_question?question_id=<%= questions[i].question_id %>" class="list-group-item row center-block">
               <div class="col-xs-5"><%= questions[i].question %></div>
               <div class="col-xs-3"><%= questions[i].answer %></div>
               <div class="col-xs-4"><%= questions[i].fake_answer_1 %>, <%= questions[i].fake_answer_2 %>, <%= questions[i].fake_answer_3 %></div> 

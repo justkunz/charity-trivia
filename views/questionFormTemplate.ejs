@@ -1,8 +1,13 @@
+<style>
+.text_input {
+  width: 300px;
+}
+</style>
 <!-- Textarea -->
 <div class="control-group">
   <label class="control-label" for="question">Question</label>
   <div class="controls">                     
-    <textarea id="question" name="question" required=""><%if (locals.question) { %><%= question[0].question %><% } %></textarea>
+    <textarea id="question" name="question" required="" class="text_input"><%if (locals.question) { %><%= question[0].question %><% } %></textarea>
   </div>
 </div>
 
@@ -10,7 +15,7 @@
 <div class="control-group">
   <label class="control-label" for="answer">Answer</label>
   <div class="controls">
-    <input id="answer" name="answer" type="text" placeholder="" class="input-xlarge" required="" <%if (locals.question) { %>value="<%= question[0].answer %>"<% } %>>
+    <input id="answer" name="answer" type="text" placeholder="" class="input-xlarge text_input" required="" <%if (locals.question) { %>value="<%= question[0].answer %>"<% } %>>
     <p class="help-block">Correct Answer</p>
   </div>
 </div>
@@ -19,7 +24,7 @@
 <div class="control-group">
   <label class="control-label" for="fake_answer_1">Fake Answer 1</label>
   <div class="controls">
-    <input id="fake_answer_1" name="fake_answer_1" type="text" placeholder="" class="input-xlarge" required="" <%if (locals.question) { %>value="<%= question[0].fake_answer_1 %>"<% } %>>
+    <input id="fake_answer_1" name="fake_answer_1" type="text" placeholder="" class="input-xlarge text_input" required="" <%if (locals.question) { %>value="<%= question[0].fake_answer_1 %>"<% } %>>
     <p class="help-block">Incorrect Answer</p>
   </div>
 </div>
@@ -28,7 +33,7 @@
 <div class="control-group">
   <label class="control-label" for="fake_answer_2">Fake Answer 2</label>
   <div class="controls">
-    <input id="fake_answer_2" name="fake_answer_2" type="text" placeholder="" class="input-xlarge" required="" <%if (locals.question) { %>value="<%= question[0].fake_answer_2 %>"<% } %>>
+    <input id="fake_answer_2" name="fake_answer_2" type="text" placeholder="" class="input-xlarge text_input" required="" <%if (locals.question) { %>value="<%= question[0].fake_answer_2 %>"<% } %>>
     <p class="help-block">Incorrect Answer</p>
   </div>
 </div>
@@ -37,7 +42,7 @@
 <div class="control-group">
   <label class="control-label" for="fake_answer_3">Fake Answer 3</label>
   <div class="controls">
-    <input id="fake_answer_3" name="fake_answer_3" type="text" placeholder="" class="input-xlarge" required="" <%if (locals.question) { %>value="<%= question[0].fake_answer_3 %>"<% } %>>
+    <input id="fake_answer_3" name="fake_answer_3" type="text" placeholder="" class="input-xlarge text_input" required="" <%if (locals.question) { %>value="<%= question[0].fake_answer_3 %>"<% } %>>
     <p class="help-block">Incorrect Answer</p>
   </div>
 </div>

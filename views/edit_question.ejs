@@ -6,35 +6,55 @@
 
     <div class="container">
       <p></p>
-      
-    <form class="form-horizontal" action="/edit_question" method="POST">
-    <fieldset>
     
-      <!-- Form Name -->
-      <legend><%= form_name %></legend>
-      
-      <!-- Include the question id -->
-      <input id="question_id" name="question_id" type="hidden" value="<%= question[0].question_id %>">
-      
-      <!-- Question Form Innards -->
-      <% include questionForm %>
-      
-      <!-- Delete Button -->
-      <div class="control-group">
-        <label class="control-label" for="delete_question"></label>
-        <div class="controls">
-          <button id="delete_question" name="delete_question" class="btn btn-danger">Delete Question</button>
+    <div class="row">
+      <div class="col-md-6 col-sm-7 col-xs-8">
+        <form class="form-horizontal" action="/edit_question" method="POST">
+        <fieldset>
+        
+          <!-- Form Name -->
+          <legend><%= form_name %></legend>
+          
+          <!-- Include the question id -->
+          <input id="question_id" name="question_id" type="hidden" value="<%= question[0].question_id %>">
+          
+          <!-- Question Form Innards -->
+          <% include questionFormTemplate %>
+         
+          <!-- Delete Button -->
+          <div class="control-group">
+            <label class="control-label" for="delete_question"></label>
+            <div class="controls">
+              <button id="delete_question" name="delete_question" class="btn btn-danger">Delete Question</button>
+            </div>
+          </div>
+          
+        </fieldset>
+        </form>
+      </div>
+
+      <!-- Question Analytics -->
+      <div class="col-md-6 col-sm-5 col-xs-4">
+        <legend>Question Analytics</legend>
+        <div class="row">
+          <div class="col-xs-8 col-sm-6 col-md-4">Correct Attempts</div>
+          <div class="col-xs-1"><span class="badge"><%= question[0].correct_attempts %></div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-xs-8 col-sm-6 col-md-4">Total Attempts</div>
+          <div class="col-xs-1"><span class="badge"><%= question[0].total_attempts %></div>
         </div>
       </div>
-      
-    </fieldset>
-    </form>
     
+
+    </div> <!-- End row div -->
     <hr>
       <div class="row"
         <% include footer %>
       </div>
-    </div>
+      
+    </div> <!-- End container div -->
     
     
     <!-- Bootstrap core JavaScript
