@@ -9,9 +9,7 @@ exports.showQuestions = function(req, res) {
 };
 
 exports.editQuestion = function(req, res) {
-  console.log(req.param("question_id"));
   query("SELECT * FROM questions WHERE question_id=$1", [req.param("question_id")], function(err, rows, result) {
-      console.log(rows);
       res.render("edit_question", {title: "Charity Trivia", question : rows, form_name : "Edit Question", form_action : "/edit_question"});
   });  
 };

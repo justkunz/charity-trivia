@@ -35,17 +35,36 @@
 
       <!-- Question Analytics -->
       <div class="col-md-6 col-sm-5 col-xs-4">
+      
         <legend>Question Analytics</legend>
+        
+        <div class="row">
+          <p class="col-xs-12">
+            These analytics can help indicate how simple/difficult your question is. The counts are reset when the question is edited.
+          </p>
+        </div>
+        
+        <!-- Correct attempts -->
         <div class="row">
           <div class="col-xs-8 col-sm-6 col-md-4">Correct Attempts</div>
           <div class="col-xs-1"><span class="badge"><%= question[0].correct_attempts %></div>
         </div>
         <br/>
+        
+        <!-- Total attempts -->
         <div class="row">
           <div class="col-xs-8 col-sm-6 col-md-4">Total Attempts</div>
           <div class="col-xs-1"><span class="badge"><%= question[0].total_attempts %></div>
         </div>
-      </div>
+        <br/>
+        
+        <!-- Difficulty Bar -->
+        <div class="row progress">
+          <% var percent_correct = (Number(question[0].correct_attempts)/Number(question[0].total_attempts)) * 100; %>
+          <div class="progress-bar <% if(percent_correct > 75 || percent_correct < 25) { %> progress-bar-danger <% } %>" style="width: <%= percent_correct %>%"></div>
+        </div>
+        
+      </div><!-- End question analytics column -->
     
 
     </div> <!-- End row div -->
