@@ -8,9 +8,14 @@ app.configure(function(){
         app.use(express.bodyParser());
 });
 
+// configure EJS for templating
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + '/public'));
+
+// set up the cookie parser
+app.use(express.cookieParser());
+app.use(express.session({secret: '1234567890QWERTY'})); // TODO: change this string
 
 // Load the home page
 app.get("/", questions.answerQuestion);

@@ -60,10 +60,31 @@ exports.deleteQuestion = function(req, res) {
 
 // Renders the home page with a random question from the database
 exports.answerQuestion = function(req, res) {
+
+  if (req.session === undefined || req.session.lastQuestionID === undefined) {
+    req.session.lastQuestionID = -1;
+  }
+  
+  if (req.session.user_progress === undefined) {
+    console.log("New user!");
+    req.session.user_progress = {};
+    req.session.user_progress.total_attempts = 0;
+    req.session.user_progress.correct_attempts = 0;
+  }
+  
   query("SELECT * FROM questions", function(err, rows, result) {
+      // render a random question that is not the same as the last question asked
       var num_rows = rows.length;
       var index = Math.floor(Math.random() * (num_rows));
-      res.render("index", {title: "Charity Trivia", question: rows[index]});
+      while (Number(req.session.lastQuestionID) == rows[index].question_id) {
+        index = Math.floor(Math.random() * (num_rows));
+      }
+      
+      // store the id of the question that was asked last
+      req.session.lastQuestionID = rows[index].question_id;
+      req.session.save();
+      
+      res.render("index", {title: "Charity Trivia", question: rows[index], correct_attempts: req.session.user_progress.correct_attempts, total_attempts: req.session.user_progress.total_attempts});
   });
 };
 
@@ -71,8 +92,15 @@ exports.answerQuestion = function(req, res) {
 exports.updateQuestionAnalytics = function(req, res) {
   console.log("Updating analytics for: ", req.params);
   
+  if (req.session.user_progress === undefined) {
+    req.session.user_progress.total_attempts = 0;
+    req.session.user_progress.correct_attempts = 0;
+  }
+  
   // update the correct attemps
   if (req.params.correct === "true") {
+    req.session.user_progress.correct_attempts = Number(req.session.user_progress.correct_attempts) + 1;
+    
     query("UPDATE questions SET correct_attempts=correct_attempts+1 WHERE question_id=$1", [req.params.question_id], function(err, rows, result) {
         if (err !== null) {
           console.log(err);
@@ -82,7 +110,10 @@ exports.updateQuestionAnalytics = function(req, res) {
     });
   }
   
-  // get the question info from the database
+  // update the total attempts
+  req.session.user_progress.total_attempts = Number(req.session.user_progress.total_attempts) + 1;
+  req.session.save();
+  
   query("UPDATE questions SET total_attempts=total_attempts+1 WHERE question_id=$1", [req.params.question_id], function(err, rows, result) {
       if (err !== null) {
         console.log(err);
