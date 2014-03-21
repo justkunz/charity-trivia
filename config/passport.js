@@ -58,7 +58,7 @@ module.exports = function(passport) {
         } else {
           
           // create the new user
-          User.newUser(req.body.name, email, password, function(err, user) {
+          User.newUser(req.body.name, email, User.generateHash(password), function(err, user) {
             if (err)
               throw err;
             
@@ -100,8 +100,8 @@ module.exports = function(passport) {
             return done(null, false, req.flash("loginMessage", "Incorrect Email."));
           }
           
-          if (user.password != password) {
-            return done(null, false, req.flash("loginMessage", "Invalid password" ));
+          if (User.validatePassword(user.user_id, password) === "true") {
+            return done(null, false, req.flash("loginMessage", "Invalid password." ));
           }
           
           return done(null, user);

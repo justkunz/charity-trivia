@@ -2,6 +2,8 @@
 var query = require("pg-query");
 query.connectionParameters = "postgres://127.0.0.1:5432/charity_trivia";
 
+var bcrypt = require("bcrypt-nodejs");
+
 // Insert a new user
 exports.newUser = function(name, email, password, next) {
   
@@ -39,3 +41,18 @@ exports.findByEmail = function(email, next) {
       return next(err, rows[0]);
   });
 }
+
+exports.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(), null);
+};
+
+exports.validatePassword = function(user_id, password) {
+  query("SELECT password FROM users WHERE user_id=$1", [user_id], function(err, rows, result) {
+    
+    if (err !== null) {
+      throw err;
+    }
+    console.log(bcrypt.compareSync(password, rows[0].password));
+    return bcrypt.compareSync(password, rows[0].password);
+  });
+};
