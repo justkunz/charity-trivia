@@ -6,13 +6,22 @@
                 <span class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><%= title %></a>
+            <a class="navbar-brand" href="/">Charity Trivia</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li id="home"><a href="/">Home</a></li>
                 <li id="about"><a href="/about">About</a></li>
                 <li id="add_questions"><a href="/questions">Questions</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if (session.passport.user !== undefined) { %>
+                <li id="profile"><a href="/user_profile/<%= session.passport.user %>"><%= user.name %></a></li>
+                <li id="logout"><a href="/logout">Logout</a></li>              
+              <% } else { %>
+                <li id="login"><a href="/login">Login</a></li>
+                <li id="signup"><a href="/signup">Sign Up</a></li>
+              <% } %>
             </ul>
         </div>
         <!--/.navbar-collapse -->

@@ -16,7 +16,7 @@
           <legend><%= form_name %></legend>
           
           <!-- Include the question id -->
-          <input id="question_id" name="question_id" type="hidden" value="<%= question[0].question_id %>">
+          <input id="question_id" name="question_id" type="hidden" value="<%= question.question_id %>">
           
           <!-- Question Form Innards -->
           <% include questionFormTemplate %>
@@ -47,20 +47,20 @@
         <!-- Correct attempts -->
         <div class="row">
           <div class="col-xs-8 col-sm-6 col-md-4">Correct Attempts</div>
-          <div class="col-xs-1"><span class="badge"><%= question[0].correct_attempts %></div>
+          <div class="col-xs-1"><span class="badge"><%= question.correct_attempts %></div>
         </div>
         <br/>
         
         <!-- Total attempts -->
         <div class="row">
           <div class="col-xs-8 col-sm-6 col-md-4">Total Attempts</div>
-          <div class="col-xs-1"><span class="badge"><%= question[0].total_attempts %></div>
+          <div class="col-xs-1"><span class="badge"><%= question.total_attempts %></div>
         </div>
         <br/>
         
         <!-- Difficulty Bar -->
         <div class="row progress">
-          <% var percent_correct = (Number(question[0].correct_attempts)/Number(question[0].total_attempts)) * 100; %>
+          <% var percent_correct = (Number(question.correct_attempts)/Number(question.total_attempts)) * 100; %>
           <div class="progress-bar <% if(percent_correct > 75 || percent_correct < 25) { %> progress-bar-danger <% } %>" style="width: <%= percent_correct %>%"></div>
         </div>
         

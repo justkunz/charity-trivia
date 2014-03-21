@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header %>
+<body>
+  <div class="container">
+    <% include navbar %>
+  </div>
+  <br/><br/>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form class="form-horizontal" action="/signup" method="post">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>Sign Up</legend>
+        
+        <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+              <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="name">Full Name</label>
+          <div class="controls">
+            <input id="name" name="name" type="text" placeholder="" class="form-control" required="">
+            
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="email">Email</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="email" required="" id="email" required="">
+            
+          </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="control-group">
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input id="password" name="password" type="password" placeholder="" class="form-control" required="">
+            
+          </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="control-group">
+          <label class="control-label" for="second_password">Re-enter Password</label>
+          <div class="controls">
+            <input id="second_password" name="second_password" type="password" placeholder="" class="form-control" required="">
+            
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="control-group">
+          <label class="control-label" for="sign_up"></label>
+          <div class="controls">
+            <button id="sign_up" name="sign_up" class="btn btn-primary">Sign Up</button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+      </div><!-- end col -->
+    </div><!-- end row -->
+  </div><!-- End container div -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/bootstrap.min.js">
+    </script>
+</body>
+</html>

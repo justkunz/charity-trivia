@@ -30,7 +30,8 @@
 
 <!-- Progress Bar -->
 <div class="row progress">
-  <% var percent_correct = (Number(correct_attempts)/Number(total_attempts)) * 100; %>
+  <% var percent_correct = (Number(session.user_progress.correct_attempts)/Number(session.user_progress.
+  total_attempts)) * 100; %>
   <div class="progress-bar" style="width: <%= percent_correct %>%"></div>
 </div>
 
