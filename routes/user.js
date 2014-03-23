@@ -21,8 +21,22 @@ module.exports = function(app, passport) {
     failureFlash: true
   }));
 
-  app.get("/user_profile/:user_id", isLoggedIn, function(req, res) {
-    res.render("user_profile", {title: "Charity Trivia", session: req.session});
+  app.get("/user_profile", isLoggedIn, function(req, res) {
+    res.render("user_profile", {title: "Charity Trivia", session: req.session, user: req.user});
+  });
+
+  app.get("/edit_user_profile", isLoggedIn, function(req, res) {
+    res.render("edit_user_profile", {title: "Charity Trivia", session: req.session, user: req.user, field: req.param("field")});
+  });
+  
+  app.post("/edit_user_profile", isLoggedIn, function(req, res) {
+    console.log(req);
+    if (req.body.name !== undefined) {
+        
+    } else if (req.body.email) {
+      
+    }
+    res.render("user_profile", {title: "Charity Trivia", session: req.session, user: req.user, field: req.param("field")});
   });
 
   app.get("/logout", function(req, res) {

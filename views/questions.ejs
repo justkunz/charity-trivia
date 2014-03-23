@@ -5,28 +5,38 @@
     <% include navbar %>
 
     <div class="container">
-      <br/><br/>
+      <br/>
       <div class="row">
-        <div class="col-md-5 col-sm-5 col-xs-5">
-          <form class="form-horizontal" action="/questions" method="POST">
-          <fieldset>
-            <!-- Form Name -->
-            <legend><%= form_name %></legend>
-            
-            <!-- The question form template -->
-            <div style="">
-              <% include questionFormTemplate %>
-            </div>
-            
-          </fieldset>
-          </form>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <div class="well bs-component">
+            <form class="form-horizontal" action="/questions" method="POST">
+            <fieldset>
+              <!-- Form Name -->
+              <legend><%= form_name %></legend>
+              
+              <!-- The question form template -->
+              <div style="">
+                <% include questionFormTemplate %>
+                
+                <!-- Submit Button -->
+                <div class="control-group">
+                  <label class="control-label" for="submit_question"></label>
+                  <div class="controls">
+                    <button id="submit_question" name="submit_question" class="btn btn-success">Submit Question</button>
+                  </div>
+                </div>
+                
+              </div>
+              
+            </fieldset>
+            </form>
+          </div>
         </div> <!-- End for the Add Questions form -->
-        
-        <div class="col-sm-1"></div>
+
 
 
         <!-- New Questions List -->
-        <div class="list-group col-md-6 col-sm-6">
+        <div class="list-group col-md-6 col-sm-6 well bs-component">
           <legend>Question List</legend>
           <div class="panel-group" id="accordion">
             <% for (var i = 0; i < questions.length; i++) { %>

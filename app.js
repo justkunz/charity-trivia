@@ -36,7 +36,7 @@ app.get("/", questions.answerQuestion);
 
 // Load the about page
 app.get("/about", function(req, res) {
-        res.render("about", {"title": "Charity Trivia", session: req.session});
+        res.render("about", {"title": "Charity Trivia", session: req.session, user: req.user});
 });
 
 // Questions Portal

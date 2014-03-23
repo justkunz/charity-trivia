@@ -6,10 +6,10 @@ var bcrypt = require("bcrypt-nodejs");
 
 // Insert a new user
 exports.newUser = function(name, email, password, next) {
-  
-  query("INSERT INTO users(name, email, password) values($1, $2, $3)", [name, email, password], function(err, rows, result) {
+  console.log(name, email, password);
+  query("INSERT INTO users(name, email, password, total_attempts, correct_attempts) values($1, $2, $3, $4, $5)", [name, email, password, 0, 0], function(err, rows, result) {
         if (err !== null) {
-          console.log(err);
+          console.log("Error adding new user: ", err);
         }
         else {
           console.log("New user in the db!");
@@ -39,6 +39,23 @@ exports.findByEmail = function(email, next) {
         return next(err, null);
       
       return next(err, rows[0]);
+  });
+}
+
+exports.updateUserAnalytics = function(user_id, correct) {
+  
+  if (correct === "true") {
+    query("UPDATE users SET correct_attempts=correct_attempts+1 WHERE user_id=$1",[user_id], function(err, rows, result) {
+      
+        if (err !== null) {
+          console.log(err);
+        }
+    });
+  }
+  
+  query("UPDATE users SET total_attempts=total_attempts+1 WHERE user_id=$1",[user_id], function(err, rows, result) {
+  
+      if (err !== null)   { console.log(err); }
   });
 }
 

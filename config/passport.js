@@ -59,8 +59,10 @@ module.exports = function(passport) {
           
           // create the new user
           User.newUser(req.body.name, email, User.generateHash(password), function(err, user) {
-            if (err)
+            if (err) {
+              console.log(err);
               throw err;
+            }
             
             User.findByEmail(email, function(err, newUser) {
               if (err)

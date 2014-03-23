@@ -9,11 +9,11 @@ query("CREATE TABLE IF NOT EXISTS questions(question_id bigserial primary key, q
 
 
 // create the users table
-query("CREATE TABLE IF NOT EXISTS users(user_id bigserial primary key, name varchar(64)  NOT NULL, email varchar(64)  NOT NULL, password bit(256) NOT NULL)", function(err, rows, result) {
+query("CREATE TABLE IF NOT EXISTS users(user_id bigserial primary key, name varchar(64)  NOT NULL, email varchar(64)  NOT NULL, password varchar(256) NOT NULL, total_attempts bigint NOT NULL, correct_attempts bigint NOT NULL)", function(err, rows, result) {
       console.log(err);
       });
 
 // create the charity table
-query("CREATE TABLE IF NOT EXISTS charities(charity_id bigserial primary key, logo OID, link varchar(256) NOT NULL, ein_number bigint NOT NULL, name varchar(64) NOT NULL, email varchar(256) NOT NULL, password bit(256) NOT NULL)", function(err, rows, result) {
+query("CREATE TABLE IF NOT EXISTS charities(charity_id bigserial primary key, logo OID, link varchar(256) NOT NULL, ein_number bigint NOT NULL, name varchar(64) NOT NULL, email varchar(256) NOT NULL, password varchar(256) NOT NULL)", function(err, rows, result) {
       console.log(err);
       });

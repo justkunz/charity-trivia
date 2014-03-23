@@ -1,17 +1,18 @@
 // Load the questions model
 var question = require("../models/question.js");
+var user = require("../models/user.js");
 
 exports.showQuestions = function(req, res) {
   // get all of the questions from this charity
   question.findByCharityID(function(err, rows) {
-    res.render("questions", { questions: rows, form_name : "Add Question", form_action : "/questions", session: req.session });
+    res.render("questions", { questions: rows, form_name : "Add Question", form_action : "/questions", session: req.session, user: req.user });
   });
 };
 
 exports.editQuestion = function(req, res) {
   // find the question, then render the edit questions page
   question.findByID(req.param("question_id"), function(err, result) {
-      res.render("edit_question", { question : result, form_name : "Edit Question", form_action : "/edit_question", session:req.session });
+      res.render("edit_question", { question : result, form_name : "Edit Question", form_action : "/edit_question", session:req.session, user: req.user });
   });  
 };
 
@@ -89,7 +90,12 @@ exports.updateQuestionAnalytics = function(req, res) {
   req.session.user_progress.total_attempts = Number(req.session.user_progress.total_attempts) + 1;
   req.session.save();
   
-  // update the db
+  // update the questions table 
   question.updateQuestionAnalytics(req.params.question_id, req.params.correct);
+  
+  // update the users table
+  if (req.user !== undefined) {
+    user.updateUserAnalytics(req.user.user_id, req.params.correct);
+  }
 
 };
