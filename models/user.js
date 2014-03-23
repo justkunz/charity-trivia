@@ -59,6 +59,27 @@ exports.updateUserAnalytics = function(user_id, correct) {
   });
 }
 
+exports.updateName = function(user_id, name) {
+  query("UPDATE users SET name=$1 WHERE user_id=$2",[name, user_id], function(err, rows, result) {
+  
+      if (err !== null)   { console.log(err); }
+  });
+}
+
+exports.updateEmail = function(user_id, email) {
+  query("UPDATE users SET email=$1 WHERE user_id=$2",[email, user_id], function(err, rows, result) {
+  
+      if (err !== null)   { console.log(err); }
+  });
+}
+
+exports.updatePassword = function(user_id, password) {
+  query("UPDATE users SET password=$1 WHERE user_id=$2",[password, user_id], function(err, rows, result) {
+  
+      if (err !== null)   { console.log(err); }
+  });
+}
+
 exports.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(), null);
 };

@@ -7,25 +7,36 @@
   </div>
   <br/><br/>
   <div class="container">
-    <div class="well bs-component">
-    
-      <legend><%= user.name %></legend>
+    <div class="row">
+      <div class="well bs-component col-md-6">
       
-      <div class="list-group">
-        <a href="/edit_user_profile?field=name" class="list-group-item">
-          <h4 class="list-group-item-heading">Name</h4>
-          <p class="list-group-item-text"><%= user.name %></p>
-        </a>
-        <a href="/edit_user_profile?field=email" class="list-group-item">
-          <h4 class="list-group-item-heading">Email</h4>
-          <p class="list-group-item-text"><%= user.email %></p>
-        </a>
-        <a href="/edit_user_profile?field=password" class="list-group-item">
-          <h4 class="list-group-item-heading">Password</h4>
-        </a>
+        <legend><%= user.name %></legend>
+        
+        <div class="list-group">
+          <a href="/edit_user_profile?field=name" class="list-group-item">
+            <h4 class="list-group-item-heading">Name</h4>
+            <p class="list-group-item-text"><%= user.name %></p>
+          </a>
+          <a href="/edit_user_profile?field=email" class="list-group-item">
+            <h4 class="list-group-item-heading">Email</h4>
+            <p class="list-group-item-text"><%= user.email %></p>
+          </a>
+          <a href="/edit_user_profile?field=password" class="list-group-item">
+            <h4 class="list-group-item-heading">Password</h4>
+          </a>
+        </div>
       </div>
-    </div>
-    
+      <div class="col-md-1"></div>
+      <div class="well bs-component col-md-5">
+        <legend>Progress</legend>
+        <div class="row progress">
+          <% var percent_correct = (Number(user.correct_attempts)/Number(user.total_attempts)) * 100; %>
+          <div class="progress-bar" style="width: <%= percent_correct %>%"></div>
+        </div>
+      </div>
+      
+    </div><!-- end row -->
+
     
     
 
