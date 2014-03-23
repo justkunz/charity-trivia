@@ -15,9 +15,18 @@ app.use(express.static(__dirname + '/public'));
 // Load the home page
 app.get("/", questions.answerQuestion);
 
-// Load the about page
-app.get("/about", function(req, res) {
-        res.render("about", {"title": "Charity Trivia"});
+// Load the about pages
+app.get("/about_charity_trivia", function(req, res) {
+        res.render("about_charity_trivia", {"title": "Charity Trivia"});
+});
+app.get("/about_partner_charities", function(req, res) {
+        res.render("about_partner_charities", {"title": "Charity Trivia"});
+});
+app.get("/about_contact_us", function(req, res) {
+        res.render("about_contact_us", {"title": "Charity Trivia"});
+});
+app.get("/about_partner_with_us", function(req, res) {
+        res.render("about_partner_with_us", {"title": "Charity Trivia"});
 });
 
 // Load the Add Questions page
