@@ -5,7 +5,7 @@ query.connectionParameters = "postgres://127.0.0.1:5432/charity_trivia";
 // Insert a new question
 // TODO: change the charity_id to the req.body, then replace the constant here
 exports.addQuestion = function(params, next) {
-  query("INSERT INTO questions(question, answer, fake_answer_1, fake_answer_2, fake_answer_3, charity_id, total_attempts, correct_attempts) values($1, $2, $3, $4, $5, $6, $7, $8)", [params.question, params.answer, params.fake_answer_1, params.fake_answer_2, params.fake_answer_3, 1, 0, 0], function(err, rows, result) {
+  query("INSERT INTO questions(question, answer, fake_answer_1, fake_answer_2, fake_answer_3, charity_id, total_attempts, correct_attempts) values($1, $2, $3, $4, $5, $6, $7, $8)", [params.question, params.answer, params.fake_answer_1, params.fake_answer_2, params.fake_answer_3, params.charity_id, 0, 0], function(err, rows, result) {
   
         printError(err);
         return next(err);

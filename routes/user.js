@@ -6,7 +6,7 @@ module.exports = function(app, passport) {
     res.render("login", {title: "Charity Trivia", session: req.session,  message: req.flash("loginMessage")});
   });
 
-  app.post("/login", passport.authenticate("login", {
+  app.post("/login", passport.authenticate("user-login", {
     successRedirect: "/",
     failureRedirect: "/login",
     failureFlash: true
@@ -16,7 +16,7 @@ module.exports = function(app, passport) {
     res.render("signup", {title: "Charity Trivia", session: req.session, message: req.flash("signupMessage")});
   });
   
-  app.post("/signup", passport.authenticate("signup", {
+  app.post("/signup", passport.authenticate("user-signup", {
     successRedirect: "/",
     failureRedirect: "/signup",
     failureFlash: true
@@ -55,7 +55,7 @@ module.exports = function(app, passport) {
 function isLoggedIn(req, res, next) {
   
   if (req.isAuthenticated()) {
-    return next();
+    return next(req, res);
   }
   
   res.redirect("/");

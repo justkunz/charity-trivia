@@ -8,6 +8,12 @@
       <br/>
       <div class="row">
         <div class="col-md-6 col-sm-6 col-xs-6">
+        
+        <!-- show any messages that come back with authentication -->
+        <% if (message.length > 0) { %>
+          <div class="alert alert-danger"><%= message %></div>
+        <% } %>
+
           <div class="well bs-component">
             <form class="form-horizontal" action="/questions" method="POST">
             <fieldset>

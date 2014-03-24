@@ -90,7 +90,7 @@ exports.validatePassword = function(user_id, password) {
     if (err !== null) {
       throw err;
     }
-    console.log(bcrypt.compareSync(password, rows[0].password));
+    
     return bcrypt.compareSync(password, rows[0].password);
   });
 };

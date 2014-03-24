@@ -9,7 +9,7 @@
     <br/><br/>
     <div class="row">
       <div class="col-md-6">
-        <legend>Login</legend>
+        <legend>Charity Login</legend>
         
         <!-- show any messages that come back with authentication -->
         <% if (message.length > 0) { %>
@@ -17,13 +17,13 @@
         <% } %>
 
         <!-- LOGIN FORM -->
-        <form class="form-horizontal" action="/login" method="post">
+        <form class="form-horizontal" action="/charity_login" method="post">
         
           <div class="control-group">
             <label>Email</label>
             <input type="text" id="email" class="form-control" name="email" required="">
           </div>
-          
+
           <br/>
           
           <div class="control-group">
@@ -39,7 +39,7 @@
         <hr>
 
         <p>Need an account? <a href="/signup">Signup</a></p>
-        <p>Or <a href="/charity_login">login as a charity</a>.</p>
+        <p>Or go <a href="/">home</a>.</p>
       </div>
     </div> <!-- End login form row div -->
     

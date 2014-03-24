@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header %>
+<body>
+  <div class="container">
+    <% include navbar %>
+  </div>
+  <br/><br/>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form class="form-horizontal" action="/charity_signup" method="post">
+        <fieldset>
+
+        <!-- Form Name -->
+        <legend>Sign Up</legend>
+        
+        <!-- show any messages that come back with authentication -->
+            <% if (message.length > 0) { %>
+              <div class="alert alert-danger"><%= message %></div>
+            <% } %>
+
+        <!-- Text input-->
+        <div class="control-group">
+          <label class="control-label" for="name">Charity Name</label>
+          <div class="controls">
+            <input id="name" name="name" type="text" placeholder="" class="form-control" required="">
+            
+          </div>
+        </div>
+
+    <br/>
+    
+        <!-- Email input-->
+        <div class="control-group">
+          <label class="control-label" for="email">Primary Charity Email</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="email" required="" id="email" required="">
+            
+          </div>
+        </div>
+    
+    <br/>
+    
+    <!-- Link input-->      
+    <div class="control-group">
+      <label>Link</label>
+      <input type="text" id="link" class="form-control" name="link" required="">
+    </div>
+    
+    <br/>
+        
+    <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="ein_number">EIN Number</label>
+      <div class="controls">
+        <input type="text" class="form-control" name="ein_number" required="" id="ein_number" required="">
+        
+      </div>
+    </div>
+    
+    <br/>
+
+        <!-- Password input-->
+        <div class="control-group">
+          <label class="control-label" for="password">Password</label>
+          <div class="controls">
+            <input id="password" name="password" type="password" placeholder="" class="form-control" required="">
+            
+          </div>
+        </div>
+        
+    <br/>
+
+        <!-- Password input-->
+        <div class="control-group">
+          <label class="control-label" for="second_password">Re-enter Password</label>
+          <div class="controls">
+            <input id="second_password" name="second_password" type="password" placeholder="" class="form-control" required="">
+            
+          </div>
+        </div>
+        
+    <br/>
+        
+    <!-- Logo Image input-->
+    <div class="control-group">
+      <label class="control-label" for="logo">Charity Logo (Optional)</label>
+      <div class="controls">
+        <input id="second_password" name="second_password" type="file" placeholder="" class="form-control">
+        
+      </div>
+    </div>
+
+        <!-- Button -->
+        <div class="control-group">
+          <label class="control-label" for="sign_up"></label>
+          <div class="controls">
+            <button id="sign_up" name="sign_up" class="btn btn-primary">Sign Up</button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+      </div><!-- end col -->
+    </div><!-- end row -->
+  
+  <br/>
+  
+  </div><!-- End container div -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="js/bootstrap.min.js">
+    </script>
+</body>
+</html>

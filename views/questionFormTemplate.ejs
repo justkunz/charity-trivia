@@ -1,9 +1,8 @@
-<style>
-. {
-  width: 300px;
-}
-</style>
-<!-- Textarea -->
+<!-- Charity ID hidden input -->
+<input id="charity_id" name="charity_id" value="<% if (req.user) { %> <%= req.user.charity_id %> <% } else { %> <%= 1 %> <% } %>">
+
+
+<!-- Question input -->
 <div class="control-group">
   <label class="control-label" for="question">Question</label>
   <div class="controls">                     

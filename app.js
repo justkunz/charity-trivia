@@ -27,14 +27,14 @@ app.configure(function(){
 
 });
 
-//require("./routes/questions")(app); // TODO
+// This is where the homepage, questions page, edit questions page live
+require("./routes/questions")(app);
+
+// this is where the user login/signup live
 require("./routes/user")(app, passport);
+
+// this is where the charity login/signup live
 require("./routes/charities")(app, passport);
-
-
-
-// Load the home page
-app.get("/", questions.answerQuestion);
 
 // Load the about pages
 app.get("/about_charity_trivia", function(req, res) {
@@ -49,17 +49,6 @@ app.get("/about_contact_us", function(req, res) {
 app.get("/about_partner_with_us", function(req, res) {
         res.render("about_partner_with_us", {session: req.session});
 });
-
-// Questions Portal
-app.get("/questions", questions.showQuestions);
-app.post("/questions", questions.addQuestion);
-
-// Edit Questions Page
-app.get("/edit_question", questions.editQuestion);
-app.post("/edit_question", questions.updateQuestion);
-
-// Asynchronously update the db for this question
-app.get("/update_analytics/:question_id/:correct", questions.updateQuestionAnalytics);
 
 // launch the app
 app.listen(1337);
