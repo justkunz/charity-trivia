@@ -1,0 +1,12 @@
+.center-y {
+  vertical-align:middle;
+}
+
+.center {
+  margin:0 auto;
+  max-width: 500px;
+}
+
+body {
+  padding-top: 50px;
+}

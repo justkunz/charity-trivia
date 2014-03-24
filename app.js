@@ -13,12 +13,12 @@ app.configure(function(){
 
   app.use(express.cookieParser());  // read cookies
   app.use(express.bodyParser());    // get info from HTML forms
-        
+
   // configure EJS for templating
   app.set("view engine", "ejs");
   app.set("views", __dirname + "/views");
   app.use(express.static(__dirname + '/public'));
-  
+
   app.use(express.session({secret: '1234567890QWERTY'})); // TODO: change this string
   app.use(passport.initialize());
   app.use(passport.session());      // persistent login sessions
@@ -34,9 +34,18 @@ require("./routes/user")(app, passport);
 // Load the home page
 app.get("/", questions.answerQuestion);
 
-// Load the about page
-app.get("/about", function(req, res) {
-        res.render("about", {"title": "Charity Trivia", session: req.session, user: req.user});
+// Load the about pages
+app.get("/about_charity_trivia", function(req, res) {
+        res.render("about_charity_trivia", {"title": "Charity Trivia"});
+});
+app.get("/about_partner_charities", function(req, res) {
+        res.render("about_partner_charities", {"title": "Charity Trivia"});
+});
+app.get("/about_contact_us", function(req, res) {
+        res.render("about_contact_us", {"title": "Charity Trivia"});
+});
+app.get("/about_partner_with_us", function(req, res) {
+        res.render("about_partner_with_us", {"title": "Charity Trivia"});
 });
 
 // Questions Portal

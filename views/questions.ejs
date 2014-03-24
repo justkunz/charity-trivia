@@ -13,11 +13,11 @@
             <fieldset>
               <!-- Form Name -->
               <legend><%= form_name %></legend>
-              
+
               <!-- The question form template -->
               <div style="">
                 <% include questionFormTemplate %>
-                
+
                 <!-- Submit Button -->
                 <div class="control-group">
                   <label class="control-label" for="submit_question"></label>
@@ -25,9 +25,9 @@
                     <button id="submit_question" name="submit_question" class="btn btn-success">Submit Question</button>
                   </div>
                 </div>
-                
+
               </div>
-              
+
             </fieldset>
             </form>
           </div>
@@ -77,21 +77,18 @@
             <a href="/edit_question?question_id=<%= questions[i].question_id %>" class="list-group-item row center-block">
               <div class="col-xs-5"><%= questions[i].question %></div>
               <div class="col-xs-3"><%= questions[i].answer %></div>
-              <div class="col-xs-4"><%= questions[i].fake_answer_1 %>, <%= questions[i].fake_answer_2 %>, <%= questions[i].fake_answer_3 %></div> 
+              <div class="col-xs-4"><%= questions[i].fake_answer_1 %>, <%= questions[i].fake_answer_2 %>, <%= questions[i].fake_answer_3 %></div>
             </a>
             <% } %>
         </div>  end question list col -->
-        
-        
-        
+
+
+
       </div>
       <hr>
-      <div class="row"
-        <% include footer %>
-      </div>
     </div>
-    
-    
+
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
