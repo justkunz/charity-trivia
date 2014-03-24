@@ -6,8 +6,9 @@ var flash = require("connect-flash");
 
 require("./config/passport")(passport);
 
-// Include the routes for the app
+// Include the routes for the questions side of the app (questions, edit questions, etc)
 var questions = require("./routes/questions");
+
 
 app.configure(function(){
 
@@ -26,8 +27,9 @@ app.configure(function(){
 
 });
 
-//require("./routes/questions")(app);
+//require("./routes/questions")(app); // TODO
 require("./routes/user")(app, passport);
+require("./routes/charities")(app, passport);
 
 
 
@@ -36,16 +38,16 @@ app.get("/", questions.answerQuestion);
 
 // Load the about pages
 app.get("/about_charity_trivia", function(req, res) {
-        res.render("about_charity_trivia", {"title": "Charity Trivia"});
+        res.render("about_charity_trivia", {session: req.session});
 });
 app.get("/about_partner_charities", function(req, res) {
-        res.render("about_partner_charities", {"title": "Charity Trivia"});
+        res.render("about_partner_charities", {session: req.session});
 });
 app.get("/about_contact_us", function(req, res) {
-        res.render("about_contact_us", {"title": "Charity Trivia"});
+        res.render("about_contact_us", {session: req.session});
 });
 app.get("/about_partner_with_us", function(req, res) {
-        res.render("about_partner_with_us", {"title": "Charity Trivia"});
+        res.render("about_partner_with_us", {session: req.session});
 });
 
 // Questions Portal
