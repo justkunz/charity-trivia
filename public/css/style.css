@@ -10,3 +10,25 @@
 body {
   padding-top: 50px;
 }
+
+.sponsor {
+  display:block;
+  width:240px;
+  height:120px;
+  /*margin:20px 33px;*/
+  min-height: 100%;
+  background-position: center center;
+  background-origin: content-box;
+  padding: 0 32px;
+  /*float:left;*/
+  background-size:contain;
+  background-repeat:no-repeat;
+  -webkit-filter:grayscale(100%);
+  opacity:.7;
+  transition: -webkit-filter, opacity .5s;
+}
+
+.sponsor:hover {
+  opacity:1;
+  -webkit-filter:grayscale(0%);
+}
