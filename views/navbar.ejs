@@ -25,10 +25,15 @@
               <li id="add_questions"><a href="/questions">Questions</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <% if (session.passport.user !== undefined) { %>
-              <li id="profile"><a href="/user_profile/<%= session.passport.user %>"><%= user.name %></a></li>
-              <li id="logout"><a href="/logout">Logout</a></li>              
-            <% } else { %>
+            <% if (session.passport.user !== undefined) { 
+                  if (user.charity_id !== undefined) { %>
+                    <li id="profile"><a href="/charity_profile"><%= user.name %></a></li>
+                    <li id="logout"><a href="/logout">Logout</a></li>       
+                <% } else { %> 
+                    <li id="profile"><a href="/user_profile"><%= user.name %></a></li>
+                    <li id="logout"><a href="/logout">Logout</a></li>  
+                <% } 
+              } else { %>
               <li id="login"><a href="/login">Login</a></li>
               <li id="signup"><a href="/signup">Sign Up</a></li>
             <% } %>

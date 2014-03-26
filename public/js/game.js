@@ -29,4 +29,6 @@ function answered(correct, question_id) {
   next_link.innerHTML = "Next Question ->";
   feedback.appendChild(next_link);
   
+  // update the progress bar
+  
 }

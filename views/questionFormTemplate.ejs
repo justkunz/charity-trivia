@@ -1,5 +1,5 @@
 <!-- Charity ID hidden input -->
-<input id="charity_id" name="charity_id" value="<% if (req.user) { %> <%= req.user.charity_id %> <% } else { %> <%= 1 %> <% } %>">
+<input id="charity_id" type="hidden" name="charity_id" value="<% if (user) { %> <%= user.charity_id %> <% } else { %> <%= 1 %> <% } %>">
 
 
 <!-- Question input -->

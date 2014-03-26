@@ -1,4 +1,5 @@
 var user = require("../models/user.js");
+var utils = require("../models/utils.js");
 
 module.exports = function(app, passport) {
 
@@ -22,16 +23,16 @@ module.exports = function(app, passport) {
     failureFlash: true
   }));
 
-  app.get("/user_profile", isLoggedIn, function(req, res) {
+  app.get("/user_profile", utils.userIsLoggedIn, function(req, res) {
+    console.log(req);
     res.render("user_profile", {title: "Charity Trivia", session: req.session, user: req.user});
   });
 
-  app.get("/edit_user_profile", isLoggedIn, function(req, res) {
+  app.get("/edit_user_profile", utils.userIsLoggedIn, function(req, res) {
     res.render("edit_user_profile", {session: req.session, user: req.user, field: req.param("field"), message: ""});
   });
   
-  app.post("/edit_user_profile", isLoggedIn, function(req, res) {
-    console.log(req);
+  app.post("/edit_user_profile", utils.userIsLoggedIn, function(req, res) {
     if (req.body.name !== undefined) {
         user.updateName(user_id, req.body.name);
     } else if (req.body.email !== undefined) {
@@ -41,6 +42,8 @@ module.exports = function(app, passport) {
           return res.render("edit_user_profile", {session: req.session, user: req.user, field: "password", message: "Your passwords do not match. Please try again."});
         }
         user.updatePassword(req.user.user_id, user.generateHash(req.body.password));
+    } else {
+      res.redirect("/edit_user_profile");
     }
     res.render("user_profile", {title: "Charity Trivia", session: req.session, user: req.user, field: req.param("field")});
   });
@@ -51,12 +54,3 @@ module.exports = function(app, passport) {
   });
 
 };
-
-function isLoggedIn(req, res, next) {
-  
-  if (req.isAuthenticated()) {
-    return next(req, res);
-  }
-  
-  res.redirect("/");
-}

@@ -6,9 +6,6 @@ var flash = require("connect-flash");
 
 require("./config/passport")(passport);
 
-// Include the routes for the questions side of the app (questions, edit questions, etc)
-var questions = require("./routes/questions");
-
 
 app.configure(function(){
 
@@ -38,16 +35,16 @@ require("./routes/charities")(app, passport);
 
 // Load the about pages
 app.get("/about_charity_trivia", function(req, res) {
-        res.render("about_charity_trivia", {session: req.session});
+        res.render("about_charity_trivia", {session: req.session, user: req.user});
 });
 app.get("/about_partner_charities", function(req, res) {
-        res.render("about_partner_charities", {session: req.session});
+        res.render("about_partner_charities", {session: req.session, user: req.user});
 });
 app.get("/about_contact_us", function(req, res) {
-        res.render("about_contact_us", {session: req.session});
+        res.render("about_contact_us", {session: req.session, user: req.user});
 });
 app.get("/about_partner_with_us", function(req, res) {
-        res.render("about_partner_with_us", {session: req.session});
+        res.render("about_partner_with_us", {session: req.session, user: req.user});
 });
 
 // launch the app

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header %>
+<body>
+  <div class="container">
+    <% include navbar %>
+  </div>
+  <br/>
+  <div class="container">
+    <div class="row center-block">
+      <div class="well bs-component col-md-6">
+      
+        <legend><%= user.name %></legend>
+        
+        <div class="list-group">
+          <a href="/edit_charity_profile" class="list-group-item">
+            <h4 class="list-group-item-heading">Charity Name</h4>
+            <p class="list-group-item-text"><%= user.name %></p>
+          </a>
+          <a href="/edit_charity_profile" class="list-group-item">
+            <h4 class="list-group-item-heading">Primary Contact Email</h4>
+            <p class="list-group-item-text"><%= user.email %></p>
+          </a>
+          <a href="/edit_charity_profile" class="list-group-item">
+            <h4 class="list-group-item-heading">Charity Link</h4>
+            <p class="list-group-item-text"><%= user.link %></p>
+          </a>
+          <a href="/edit_charity_profile" class="list-group-item">
+            <h4 class="list-group-item-heading">Charity Logo</h4>
+            <p class="list-group-item-text"><%= user.logo %></p>
+          </a>
+          <a href="/edit_charity_profile" class="list-group-item">
+            <h4 class="list-group-item-heading">EIN Number</h4>
+            <p class="list-group-item-text"><%= user.ein_number %></p>
+          </a>
+          <a href="/edit_charity_profile" class="list-group-item">
+            <h4 class="list-group-item-heading">Password</h4>
+          </a>
+        </div>
+      </div>
+      
+    </div><!-- end row -->
+    
+  </div><!-- End main container -->
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="js/bootstrap.min.js">
+  </script>
+</body>
+</html>

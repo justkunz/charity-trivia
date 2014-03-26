@@ -3,6 +3,7 @@ var LocalStrategy = require("passport-local").Strategy;
 
 var User = require("../models/user.js");
 var Charity = require("../models/charities.js");
+var utils = require("../models/utils.js");
 
 module.exports = function(passport) {
   
@@ -54,7 +55,7 @@ module.exports = function(passport) {
       process.nextTick(function() {
       
         // validate the email
-        if (!validateEmail(email)) {
+        if (!utils.validateEmail(email)) {
           return done(null, false, req.flash("signupMessage", "The email you provided is not valid. Please try again."));
         }
         
@@ -73,7 +74,7 @@ module.exports = function(passport) {
           } else {
             
             // create the new user
-            User.newUser(req.body.name, email, User.generateHash(password), function(err, user) {
+            User.newUser(req.body.name, email, utils.generateHash(password), function(err, user) {
               if (err) {
                 console.log(err);
                 throw err;
@@ -116,7 +117,7 @@ module.exports = function(passport) {
             return done(null, false, req.flash("loginMessage", "Incorrect Email."));
           }
           
-          if (User.validatePassword(user.user_id, password) === "true") {
+          if (utils.validatePassword(user.user_id, "user", password) === "true") {
             return done(null, false, req.flash("loginMessage", "Invalid password." ));
           }
           
@@ -140,7 +141,7 @@ module.exports = function(passport) {
       process.nextTick(function() {
       
         // validate the email
-        if (!validateEmail(email)) {
+        if (!utils.validateEmail(email)) {
           return done(null, false, req.flash("signupMessage", "The email you provided is not valid. Please try again."));
         }
         
@@ -159,7 +160,7 @@ module.exports = function(passport) {
           } else {
             
             // create the new user
-            Charity.newCharity(req.body, User.generateHash(password), function(err, user) {
+            Charity.newCharity(req.body, utils.generateHash(password), function(err, user) {
               if (err) {
                 console.log(err);
                 throw err;
@@ -202,7 +203,7 @@ module.exports = function(passport) {
             return done(null, false, req.flash("loginMessage", "Incorrect Email."));
           }
           
-          if (Charity.validatePassword(charity.charity_id, password) === "true") {
+          if (utils.validatePassword(charity.charity_id, "charities", password) === "true") {
             return done(null, false, req.flash("loginMessage", "Invalid password." ));
           }
           console.log("Charity was successfully logged in!");
@@ -212,8 +213,3 @@ module.exports = function(passport) {
     }
   ));
 }
-
-function validateEmail(email) { 
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-} 

@@ -1,15 +1,15 @@
 // Load the questions model
 var question = require("../models/question.js");
 var user = require("../models/user.js");
+var charities = require("../models/charities.js");
 
 module.exports = function(app, passport) {
 
   app.get("/questions", isLoggedIn, function(req, res) {
-    console.log(req.session);
-    // get all of the questions from this charity
-    question.findByCharityID(function(err, rows) {
-      
-      res.render("questions", { questions: rows, form_name : "Add Question", form_action : "/questions", session: req.session, user: req.user, message: req.flash });
+
+    // get all of the questions from this charity and display them in a table
+    question.findByCharityID(req.user.charity_id, function(err, rows) {
+      return res.render("questions", {session: req.session, user: req.user, charity_questions: rows, form_action: "/questions", message: req.flash("questionMessage")});
     });
   });
 
@@ -21,7 +21,7 @@ module.exports = function(app, passport) {
         return res.redirect("/questions");
       }
       
-      res.render("edit_question", { question : result, form_name : "Edit Question", form_action : "/edit_question", session:req.session, user: req.user });
+      res.render("edit_question", { question : result, form_action : "/edit_question", session:req.session, user: req.user });
     });  
   });
 
@@ -81,7 +81,14 @@ module.exports = function(app, passport) {
         req.session.lastQuestionID = rows[index].question_id;
         req.session.save();
         
-        res.render("index", { question: rows[index], session: req.session, user: req.user });
+        charities.findByID(rows[index].charity_id, function(err, charity_info) {
+        
+          console.log(charity_info);
+          if (err) {
+            res.redirect("/");
+          }
+          res.render("index", { question: rows[index], session: req.session, user: req.user, charity: charity_info });
+        });
     });
   });
 
@@ -116,10 +123,11 @@ module.exports = function(app, passport) {
 
 function isLoggedIn(req, res, next) {
   
+  console.log("isLoggedIn User: ", req.user);
   if (req.isAuthenticated() && req.user.charity_id) {
-    return next(req, res);
+    return next();
   }
   
   console.log("You are not allowed to access this page!");
-  res.redirect("/");
+  res.redirect("/charity_login");
 }

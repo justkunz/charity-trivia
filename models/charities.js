@@ -4,6 +4,8 @@ query.connectionParameters = "postgres://127.0.0.1:5432/charity_trivia";
 
 var bcrypt = require("bcrypt-nodejs");
 
+var utils = require("../models/utils.js");
+
 exports.newCharity = function(params, password, next) {
   query("INSERT INTO charities(logo, link, ein_number, name, email, password) values($1, $2, $3, $4, $5, $6)", [params.logo, params.link, params.ein_number, params.name, params.email, password], function(err, rows, result) {
       if (err !== null) {
@@ -37,17 +39,23 @@ exports.findByEmail = function(email, next) {
   });
 }
 
-exports.generateHash = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(), null);
+exports.updateCharity = function(params, next) {
+
+  // first update all of the typical params
+  query("UPDATE charities SET name=$1, email=$2, link=$3, ein_number=$4 WHERE charity_id=$5", [params.name, params.email, params.link, params.ein_number, params.charity_id], function(err, rows, result) {
+  
+    utils.printError(err, "Charities.updateCharity Error: ");
+    next(err);
+    
+  });
+  
+
 }
 
-exports.validatePassword = function(charity_id, password) {
-  query("SELECT password FROM charities WHERE charity_id=$1", [charity_id], function(err, rows, result) {
-    
-    if (err !== null) {
-      throw err;
-    }
-    
-    return bcrypt.compareSync(password, rows[0].password);
+exports.updateCharityPassword = function(password, next) {
+  query("UPDATE charities SET password=$1", [utils.generateHash(password)], function(err, rows, result) {
+
+    utils.printError(err, "Charities.updateCharity Error: ");
+
   });
-};
+}

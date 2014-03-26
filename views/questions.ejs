@@ -2,97 +2,77 @@
 <html lang="en">
 <% include header %>
 <body>
+  <div class="container">
     <% include navbar %>
+  </div>
 
-    <div class="container">
-      <br/>
-      <div class="row">
-        <div class="col-md-6 col-sm-6 col-xs-6">
-        
+  <div class="container">
+    <br/>
+    <div class="row">
+      <div class="col-md-5 col-sm-5 col-xs-5 well bs-component">
+      
         <!-- show any messages that come back with authentication -->
         <% if (message.length > 0) { %>
           <div class="alert alert-danger"><%= message %></div>
         <% } %>
+        
+        <form class="form-horizontal" action="/questions" method="POST">
+        <fieldset>
+          <!-- Form Name -->
+          <legend>Add Question</legend>
 
-          <div class="well bs-component">
-            <form class="form-horizontal" action="/questions" method="POST">
-            <fieldset>
-              <!-- Form Name -->
-              <legend><%= form_name %></legend>
+          <!-- The question form template -->
+          <% include questionFormTemplate %>
+            
 
-              <!-- The question form template -->
-              <div style="">
-                <% include questionFormTemplate %>
-
-                <!-- Submit Button -->
-                <div class="control-group">
-                  <label class="control-label" for="submit_question"></label>
-                  <div class="controls">
-                    <button id="submit_question" name="submit_question" class="btn btn-success">Submit Question</button>
-                  </div>
-                </div>
-
-              </div>
-
-            </fieldset>
-            </form>
+          <!-- Submit Button -->
+          <div class="control-group">
+            <label class="control-label" for="submit_question"></label>
+            <div class="controls">
+              <button id="submit_question" name="submit_question" class="btn btn-primary center-block">Submit Question</button>
+            </div>
           </div>
-        </div> <!-- End for the Add Questions form -->
 
+        </fieldset>
+        </form>
 
+      </div> <!-- End for the Add Questions col -->
+        
+      <!-- empty col -->
+      <div class="col-md-1 col-sm-1 col-xs-1"></div>
 
-        <!-- New Questions List -->
-        <div class="list-group col-md-6 col-sm-6 well bs-component">
-          <legend>Question List</legend>
-          <div class="panel-group" id="accordion">
-            <% for (var i = 0; i < questions.length; i++) { %>
-              <div class="panel panel-primary">
-                <div class="panel-heading">
-                  <h3 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#<%= questions[i].question_id %>">
-                      <%= questions[i].question %>
+      <!-- New Questions List -->
+      <div class="list-group col-md-6 col-sm-6 well bs-component">
+        <legend>Question List</legend>
+        <div class="panel-group" id="accordion">
+          <% for (var i = 0; i < charity_questions.length; i++) { %>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#<%= charity_questions[i].question_id %>">
+                    <%= charity_questions[i].question %>
+                  </a>
+                </h3>
+              </div>
+              <div id="<%= charity_questions[i].question_id %>" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div class="col-xs-4">Answer: <%= charity_questions[i].answer %></div>
+                  <div class="col-xs-6">Distractors: <%= charity_questions[i].fake_answer_1 %>, <%= charity_questions[i].fake_answer_2 %>, <%= charity_questions[i].fake_answer_3 %></div>
+                  <div class="col-xs-2">
+                    <a href="/edit_question?question_id=<%= charity_questions[i].question_id %>">
+                      <button type="button" class="btn btn-info">Edit</button>
                     </a>
-                  </h3>
-                </div>
-                <div id="<%= questions[i].question_id %>" class="panel-collapse collapse">
-                  <div class="panel-body">
-                    <div class="col-xs-4">Answer: <%= questions[i].answer %></div>
-                    <div class="col-xs-6">Distractors: <%= questions[i].fake_answer_1 %>, <%= questions[i].fake_answer_2 %>, <%= questions[i].fake_answer_3 %></div>
-                    <div class="col-xs-2">
-                      <a href="/edit_question?question_id=<%= questions[i].question_id %>">
-                        <button type="button" class="btn btn-info">Edit</button>
-                      </a>
-                    </div>
                   </div>
                 </div>
               </div>
-            <% } %>
-          </div>
+            </div>
+          <% } %>
         </div>
-
-
-        <!-- Old Questions List
-        <div class="list-group col-md-6 col-sm-6">
-          <legend>Question List</legend>
-          <div class="list-group-item row center-block">
-            <div class="col-xs-5">Question</div>
-            <div class="col-xs-3">Answer</div>
-            <div class="col-xs-4">Fake Answers</div>
-          </div>
-          <% for (var i = 0; i < questions.length; i++) { %>
-            <a href="/edit_question?question_id=<%= questions[i].question_id %>" class="list-group-item row center-block">
-              <div class="col-xs-5"><%= questions[i].question %></div>
-              <div class="col-xs-3"><%= questions[i].answer %></div>
-              <div class="col-xs-4"><%= questions[i].fake_answer_1 %>, <%= questions[i].fake_answer_2 %>, <%= questions[i].fake_answer_3 %></div>
-            </a>
-            <% } %>
-        </div>  end question list col -->
-
-
-
       </div>
-      <hr>
     </div>
+    
+    <hr>
+  </div>
 
 
     <!-- Bootstrap core JavaScript

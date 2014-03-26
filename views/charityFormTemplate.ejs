@@ -1,0 +1,76 @@
+<input id="charity_id" type="hidden" name="charity_id" value="<% if (user) { %> <%= user.charity_id %> <% } else { %> <%= 1 %> <% } %>">
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="name">Charity Name</label>
+  <div class="controls">
+    <input id="name" name="name" type="text" placeholder="" class="form-control" required="" <% if (user) { %>value="<%= user.name %>"<% } %> >
+    
+  </div>
+</div>
+
+<br/>
+
+<!-- Email input-->
+<div class="control-group">
+  <label class="control-label" for="email">Primary Charity Email</label>
+  <div class="controls">
+    <input type="text" class="form-control" name="email" required="" id="email" required="" <% if (user) { %>value="<%= user.email %>"<% } %> >
+    
+  </div>
+</div>
+
+<br/>
+
+<!-- Link input-->      
+<div class="control-group">
+  <label>Link</label>
+  <input type="text" id="link" class="form-control" name="link" required="" <% if (user) { %>value="<%= user.link %>"<% } %> >
+</div>
+
+<br/>
+    
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="ein_number">EIN Number</label>
+  <div class="controls">
+    <input type="text" class="form-control" name="ein_number" required="" id="ein_number" required="" <% if (user) { %>value="<%= user.ein_number %>"<% } %> >
+    
+  </div>
+</div>
+
+<br/>
+
+<!-- Password input-->
+<div class="control-group">
+  <label class="control-label" for="password">Password</label>
+  <div class="controls">
+    <input id="password" name="password" type="password" placeholder="" class="form-control">
+    
+  </div>
+</div>
+
+<br/>
+
+<!-- Password input-->
+<div class="control-group">
+  <label class="control-label" for="second_password">Re-enter Password</label>
+  <div class="controls">
+    <input id="second_password" name="second_password" type="password" placeholder="" class="form-control">
+    
+  </div>
+</div>
+
+<br/>
+    
+<!-- Logo Image input-->
+<div class="control-group">
+  <label class="control-label" for="logo">Charity Logo (Optional)</label>
+  <div class="controls">
+    <input id="logo" name="logo" type="file" placeholder="" class="form-control">
+    
+  </div>
+</div>
+
+
+
