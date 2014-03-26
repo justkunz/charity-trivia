@@ -2,15 +2,15 @@
 <html lang="en">
 <% include header %>
 <body>
-  
+
   <% include navbar %>
-  
+
   <div class="container">
     <br/><br/>
     <div class="row">
       <div class="col-md-6">
         <legend>Login</legend>
-        
+
         <!-- show any messages that come back with authentication -->
         <% if (message.length > 0) { %>
           <div class="alert alert-danger"><%= message %></div>
@@ -18,34 +18,30 @@
 
         <!-- LOGIN FORM -->
         <form class="form-horizontal" action="/login" method="post">
-        
+
           <div class="control-group">
             <label>Email</label>
             <input type="text" id="email" class="form-control" name="email" required="">
           </div>
-          
+
           <br/>
-          
+
           <div class="control-group">
             <label>Password</label>
             <input type="password" id="password" class="form-control" name="password" required="">
           </div>
-          
+
           <br/>
-          
+
           <button type="submit" class="btn btn-success btn-lg">Login</button>
         </form>
 
         <hr>
 
-        <p>Need an account? <a href="/signup">Signup</a></p>
-        <p>Or <a href="/charity_login">login as a charity</a>.</p>
+        <p>Need an account? <a href="/signup">Sign up</a>.</p>
+        <p>Or, <a href="/charity_login">login as a charity</a>.</p>
       </div>
     </div> <!-- End login form row div -->
-    
-    <div class="row">
-      <% include footer %>
-    </div>
   </div>
 
     <!-- Bootstrap core JavaScript
