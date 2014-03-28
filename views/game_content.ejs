@@ -46,8 +46,17 @@
 
 <div class="row charity-info">
 
-  <p>Sponsored by <%= charity.name %></p>
+  <div class="col-md-2 col-xs-2"></div>
   
+  <div class="col-md-6 col-xs-6">
+    <p style="float:right;">Sponsored by <a href="<%= charity.link %>" parent="_blank"><%= charity.name %></a></p>
+  </div>
+  
+  <div class="col-md-2 col-xs-2">
+    <img height="50px" src="<%= charity.logo %>" />
+  </div>
+  
+  <div class="col-md-2 col-xs-2"></div>
 
 </div>
 

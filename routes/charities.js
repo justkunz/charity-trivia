@@ -14,7 +14,7 @@ module.exports = function(app, passport) {
   }));
   
   app.get("/charity_signup", function(req, res) {
-    res.render("charity_signup", {session: req.session,  message: req.flash("loginMessage")});
+    res.render("charity_signup", {session: req.session,  message: req.flash("loginMessage"), user: req.user});
   });
   
   app.post("/charity_signup", passport.authenticate("charity-signup", {
@@ -52,22 +52,38 @@ module.exports = function(app, passport) {
         charities.updateCharityPassword(req.body.password, req.body.charity_id, function(err) {
             if (err !== null) {
               req.flash("charityProfileMessage", "There was an error updating your password. Please try again.");
-              res.redirect("/edit_charity_profile");
+              return res.redirect("/edit_charity_profile");
             }
         });
       }
     }
     
-    // update the charity profile
-    charities.updateCharity(req.body, function(err) {
-      
+    // update the logo, then update the rest of the params
+    charities.uploadLogo(req.files.logo, function(err, logo_path) {
+
+      // don't continue if there was an error with the logo
       if (err !== null) {
-        req.flash("charityProfileMessage", "There was an error updating your profile. Please try again.");
-        res.redirect("/edit_charity_profile");
+        console.log(err);
+        req.flash("charityProfileMessage", "There was an error uploading your logo. Please try again.");
+        return res.redirect("/edit_charity_profile");
       }
-      res.redirect("/charity_profile");
+      console.log("Done uploading logo");
+      
+      // TODO: delete the old file path here
+    
+      // update the charity profile
+      charities.updateCharity(req.body, logo_path, function(err) {
+        
+        if (err !== null) {
+          req.flash("charityProfileMessage", "There was an error updating your profile. Please try again.");
+          return res.redirect("/edit_charity_profile");
+        }
+      
+        res.redirect("/charity_profile");
+      });
     });
   });
+  
   
 }
 

@@ -2,10 +2,11 @@
 var question = require("../models/question.js");
 var user = require("../models/user.js");
 var charities = require("../models/charities.js");
+var utils = require("../models/utils.js");
 
 module.exports = function(app, passport) {
 
-  app.get("/questions", isLoggedIn, function(req, res) {
+  app.get("/questions", utils.charityIsLoggedIn, function(req, res) {
 
     // get all of the questions from this charity and display them in a table
     question.findByCharityID(req.user.charity_id, function(err, rows) {
@@ -37,7 +38,6 @@ module.exports = function(app, passport) {
 
   // Updates (and possibly deletes) the provided question
   app.post("/edit_question", function(req, res) {
-    console.log("Updating question: ", req.body);
     
     // delete this question
     if (req.body.delete_question != undefined) {
@@ -55,9 +55,6 @@ module.exports = function(app, passport) {
   // Renders the home page with a random question from the database
   // Load the home page
   app.get("/", function(req, res) {
-
-    console.log("Session: ", req.session);
-    console.log("User: ", req.user);
 
     if (req.session === undefined || req.session.lastQuestionID === undefined) {
       req.session.lastQuestionID = -1;
@@ -83,7 +80,6 @@ module.exports = function(app, passport) {
         
         charities.findByID(rows[index].charity_id, function(err, charity_info) {
         
-          console.log(charity_info);
           if (err) {
             res.redirect("/");
           }
@@ -94,7 +90,6 @@ module.exports = function(app, passport) {
 
   // Called in game.js after a user clicks on an answer
   app.get("/update_analytics/:question_id/:correct", function(req, res) {
-    console.log("Updating analytics for: ", req.params);
     
     if (req.session.user_progress === undefined) {
       req.session.user_progress.total_attempts = 0;
@@ -119,15 +114,4 @@ module.exports = function(app, passport) {
     }
 
   });
-}
-
-function isLoggedIn(req, res, next) {
-  
-  console.log("isLoggedIn User: ", req.user);
-  if (req.isAuthenticated() && req.user.charity_id) {
-    return next();
-  }
-  
-  console.log("You are not allowed to access this page!");
-  res.redirect("/charity_login");
 }

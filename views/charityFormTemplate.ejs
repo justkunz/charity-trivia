@@ -13,9 +13,9 @@
 
 <!-- Email input-->
 <div class="control-group">
-  <label class="control-label" for="email">Primary Charity Email</label>
+  <label class="control-label" for="charity_email">Primary Charity Email</label>
   <div class="controls">
-    <input type="text" class="form-control" name="email" required="" id="email" required="" <% if (user) { %>value="<%= user.email %>"<% } %> >
+    <input type="text" class="form-control" name="charity_email" required="" id="charity_email" required="" <% if (user) { %>value="<%= user.email %>"<% } %> >
     
   </div>
 </div>
@@ -67,7 +67,7 @@
 <div class="control-group">
   <label class="control-label" for="logo">Charity Logo (Optional)</label>
   <div class="controls">
-    <input id="logo" name="logo" type="file" placeholder="" class="form-control">
+    <input id="logo" name="logo" type="file" class="form-control">
     
   </div>
 </div>

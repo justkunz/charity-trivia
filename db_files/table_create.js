@@ -14,6 +14,6 @@ query("CREATE TABLE IF NOT EXISTS users(user_id bigserial primary key, name varc
       });
 
 // create the charity table
-query("CREATE TABLE IF NOT EXISTS charities(charity_id bigserial primary key, logo OID, link varchar(256) NOT NULL, ein_number bigint NOT NULL, name varchar(64) NOT NULL, email varchar(256) NOT NULL, password varchar(256) NOT NULL)", function(err, rows, result) {
+query("CREATE TABLE IF NOT EXISTS charities(charity_id bigserial primary key, logo varchar(1024), link varchar(256) NOT NULL, ein_number bigint NOT NULL, name varchar(64) NOT NULL, email varchar(256) NOT NULL, password varchar(256) NOT NULL)", function(err, rows, result) {
       console.log(err);
       });

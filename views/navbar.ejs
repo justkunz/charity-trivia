@@ -22,7 +22,9 @@
                   <li><a href="/about_partner_with_us">Partner With Us!</a></li>
                 </ul>
               </li>
-              <li id="add_questions"><a href="/questions">Questions</a></li>
+              <% if (user !== undefined && user.charity_id !== undefined) { %>
+                <li id="add_questions"><a href="/questions">Questions Portal</a></li>
+              <% } %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <% if (session.passport.user !== undefined) { 

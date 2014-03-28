@@ -18,7 +18,7 @@ exports.printError = function(err, prompt) {
 
 exports.charityIsLoggedIn = function(req, res, next) {
   
-  console.log("isLoggedIn User: ", req.user);
+  console.log("charityIsLoggedIn User: ", req.user);
   if (req.isAuthenticated() && req.user.charity_id) {
     return next();
   }
@@ -29,7 +29,7 @@ exports.charityIsLoggedIn = function(req, res, next) {
 exports.userIsLoggedIn = function(req, res, next) {
   
   if (req.isAuthenticated()) {
-    console.log("User had been authenticated");
+    console.log("User isLoggedIn: ", req.user);
     return next();
   }
   
@@ -40,25 +40,29 @@ exports.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(), null);
 }
 
-exports.validatePassword = function(id, table, password) {
+exports.validatePassword = function(id, table, password, next) {
 
   if (table === "charities") {
     query("SELECT password FROM charities WHERE charity_id=$1", [id], function(err, rows, result) {
       
       if (err !== null) {
         throw err;
+      }else if (rows.length === 0) {
+        throw ("Charity " + id + " not found!");
       }
       
-      return bcrypt.compareSync(password, rows[0].password);
+      return next(bcrypt.compareSync(password, rows[0].password));
     });
   } else if (table === "users") {
     query("SELECT password FROM users WHERE user_id=$1", [id], function(err, rows, result) {
       
       if (err !== null) {
         throw err;
+      } else if (rows.length === 0) {
+        throw ("User " + id + " not found!");
       }
-      
-      return bcrypt.compareSync(password, rows[0].password);
+
+      return next(bcrypt.compareSync(password, rows[0].password));
     });
   } else {
     throw "That table does not exist!";
