@@ -36,7 +36,8 @@ module.exports = function(app, passport) {
     console.log("Updating Charity Profile: ", req.body);
     
     // validate the email
-    if (!utils.validateEmail(req.body.email)) {
+    if (!utils.validateEmail(req.body.charity_email)) {
+      console.log(req.body.charity_email);
       req.flash("charityProfileMessage", "The email you provided is not valid. Please try again.");
       res.redirect("/edit_charity_profile");
     }

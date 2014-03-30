@@ -16,7 +16,6 @@ module.exports = function(passport) {
 
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
-    console.log("Serializing User: ", user);
     if (user.user_id !== undefined) {
       done(null, JSON.stringify({id: user.user_id, email: user.email}));
     } else {
@@ -27,7 +26,6 @@ module.exports = function(passport) {
   // used to deserialize the user
   passport.deserializeUser(function(user_string, done) {
       var user_data = JSON.parse(user_string);
-      console.log("DeSerializing User ", user_data);
       User.findByIDAndEmail(user_data.id, user_data.email, function(err, user) {
         if (user !== null) {
           done(err, user);

@@ -106,7 +106,7 @@ exports.updateCharity = function(params, logo_path, next) {
 
   // first update all of the typical params
   if (logo_path !== undefined && logo_path !== null) {
-    query("UPDATE charities SET name=$1, email=$2, link=$3, ein_number=$4, logo=$5 WHERE charity_id=$6", [params.name, params.email, params.link, params.ein_number, logo_path, params.charity_id], function(err, rows, result) {
+    query("UPDATE charities SET name=$1, email=$2, link=$3, ein_number=$4, logo=$5 WHERE charity_id=$6", [params.name, params.charity_email, params.link, params.ein_number, logo_path, params.charity_id], function(err, rows, result) {
 
       utils.printError(err, "Charities.updateCharity Error: ");
       return next(err);
@@ -114,7 +114,7 @@ exports.updateCharity = function(params, logo_path, next) {
     });
   }
   else {
-    query("UPDATE charities SET name=$1, email=$2, link=$3, ein_number=$4 WHERE charity_id=$5", [params.name, params.email, params.link, params.ein_number, params.charity_id], function(err, rows, result) {
+    query("UPDATE charities SET name=$1, email=$2, link=$3, ein_number=$4 WHERE charity_id=$5", [params.name, params.charity_email, params.link, params.ein_number, params.charity_id], function(err, rows, result) {
 
       utils.printError(err, "Charities.updateCharity Error: ");
       return next(err);
