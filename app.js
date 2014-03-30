@@ -36,13 +36,14 @@ require("./routes/user")(app, passport);
 // this is where the charity login/signup live
 require("./routes/charities")(app, passport);
 
+// this is where hte sponsor page lives
+require("./routes/about_partner_charities")(app);
+
 // Load the about pages
 app.get("/about_charity_trivia", function(req, res) {
         res.render("about_charity_trivia", {session: req.session});
 });
-app.get("/about_partner_charities", function(req, res) {
-        res.render("about_partner_charities", {session: req.session});
-});
+
 app.get("/about_contact_us", function(req, res) {
         res.render("about_contact_us", {session: req.session});
 });

@@ -10,7 +10,11 @@
     <br/>
     <h1>Our Partners</h1>
 
-    <a class="sponsor" href="http://www.google.com" style="background-image:url('http://www.seomofo.com/downloads/new-google-logo-knockoff.png')"></a>
+    <% for (var i = 0; i < charities.length; i++) { %>
+        <p><%= charities[i].link %></p>
+        <a class="sponsor" href="<%= charities[i].link %>" style="background-image:url('http://www.seomofo.com/downloads/new-google-logo-knockoff.png')"></a>
+    <% } %>
+
 
   </div>
 
