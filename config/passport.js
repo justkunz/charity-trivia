@@ -3,6 +3,7 @@ var LocalStrategy = require("passport-local").Strategy;
 
 var User = require("../models/user.js");
 var Charity = require("../models/charities.js");
+var utils = require("../models/utils.js");
 
 module.exports = function(passport) {
   
@@ -15,20 +16,23 @@ module.exports = function(passport) {
 
   // used to serialize the user for the session
   passport.serializeUser(function(user, done) {
+    console.log("Serializing User: ", user);
     if (user.user_id !== undefined) {
-      done(null, user.user_id);
+      done(null, JSON.stringify({id: user.user_id, email: user.email}));
     } else {
-      done(null, user.charity_id);
+      done(null, JSON.stringify({id: user.charity_id, email: user.email}));
     }
   });
 
   // used to deserialize the user
-  passport.deserializeUser(function(id, done) {
-      User.findByID(id, function(err, user) {
+  passport.deserializeUser(function(user_string, done) {
+      var user_data = JSON.parse(user_string);
+      console.log("DeSerializing User ", user_data);
+      User.findByIDAndEmail(user_data.id, user_data.email, function(err, user) {
         if (user !== null) {
           done(err, user);
         } else {
-          Charity.findByID(id, function(err, charity) {
+          Charity.findByIDAndEmail(user_data.id, user_data.email, function(err, charity) {
             done(err, charity);
           });
         }
@@ -54,7 +58,7 @@ module.exports = function(passport) {
       process.nextTick(function() {
       
         // validate the email
-        if (!validateEmail(email)) {
+        if (!utils.validateEmail(email)) {
           return done(null, false, req.flash("signupMessage", "The email you provided is not valid. Please try again."));
         }
         
@@ -73,7 +77,7 @@ module.exports = function(passport) {
           } else {
             
             // create the new user
-            User.newUser(req.body.name, email, User.generateHash(password), function(err, user) {
+            User.newUser(req.body.name, email, utils.generateHash(password), function(err, user) {
               if (err) {
                 console.log(err);
                 throw err;
@@ -83,7 +87,7 @@ module.exports = function(passport) {
                 if (err)
                   throw err;
                 
-                console.log(newUser);
+                console.log("New User: ", newUser);
                 return done(null, newUser);
               });
             });
@@ -115,12 +119,15 @@ module.exports = function(passport) {
           if (!user) {
             return done(null, false, req.flash("loginMessage", "Incorrect Email."));
           }
+          console.log("Verifying with password: ", password);
+          utils.validatePassword(user.user_id, "users", password, function(res) {
+            if (res !== true) {
+              return done(null, false, req.flash("loginMessage", "Invalid password." ));
+            }
           
-          if (User.validatePassword(user.user_id, password) === "true") {
-            return done(null, false, req.flash("loginMessage", "Invalid password." ));
-          }
-          
-          return done(null, user);
+            console.log("User has been successfully loged in!");
+            return done(null, user);
+          });
         });
       });
     }
@@ -132,7 +139,7 @@ module.exports = function(passport) {
   
   // handle the charity sign up
   passport.use("charity-signup", new LocalStrategy(
-    { usernameField: "email",
+    { usernameField: "charity_email",
       passwordField: "password",
       passReqToCallback: true
     },
@@ -140,7 +147,7 @@ module.exports = function(passport) {
       process.nextTick(function() {
       
         // validate the email
-        if (!validateEmail(email)) {
+        if (!utils.validateEmail(email)) {
           return done(null, false, req.flash("signupMessage", "The email you provided is not valid. Please try again."));
         }
         
@@ -159,7 +166,7 @@ module.exports = function(passport) {
           } else {
             
             // create the new user
-            Charity.newCharity(req.body, User.generateHash(password), function(err, user) {
+            Charity.newCharity(req.body, utils.generateHash(password), req.files.logo, function(err, user) {
               if (err) {
                 console.log(err);
                 throw err;
@@ -181,12 +188,12 @@ module.exports = function(passport) {
   
   // handle the charity login
   passport.use("charity-login", new LocalStrategy(
-    { usernameField: "email",
+    { usernameField: "charity_email",
       passwordField: "password",
       passReqToCallback: true
     },
     function(req, email, password, done) {
-    
+      ''
       // asynchronous verification
       process.nextTick(function() {
       
@@ -202,18 +209,20 @@ module.exports = function(passport) {
             return done(null, false, req.flash("loginMessage", "Incorrect Email."));
           }
           
-          if (Charity.validatePassword(charity.charity_id, password) === "true") {
-            return done(null, false, req.flash("loginMessage", "Invalid password." ));
-          }
-          console.log("Charity was successfully logged in!");
-          return done(null, charity);
+          utils.validatePassword(charity.charity_id, "charities", password, function(res) {
+          
+            if (res !== true) {
+              return done(null, false, req.flash("loginMessage", "Invalid password." ));
+            }
+            
+            console.log(req.user);
+            console.log(charity);
+          
+            console.log("Charity was successfully logged in!");
+            return done(null, charity);
+          });
         });
       });
     }
   ));
 }
-
-function validateEmail(email) { 
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-} 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header %>
+<body>
+  <div class="container">
+    <% include navbar %>
+  </div>
+  <br/>
+  <div class="container">
+  
+    <div class="row center-block">
+      <div class="col-md-6">
+        
+        <legend>Edit Profile</legend>
+        
+        <form class="form-horizontal" action="/edit_charity_profile" method="post" enctype="multipart/form-data">
+        <fieldset>
+
+          <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message %></div>
+          <% } %>
+
+          <!-- Charity form innards -->
+          <% include charityFormTemplate %>
+
+          <!-- Button -->
+          <div class="control-group">
+      <label class="control-label" for="sign_up"></label>
+      <div class="controls">
+        <button id="sign_up" name="sign_up" class="btn btn-primary">Update Profile</button>
+      </div>
+          </div>
+    <br/>
+
+        </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="js/bootstrap.min.js">
+  </script>
+</body>
+</html>

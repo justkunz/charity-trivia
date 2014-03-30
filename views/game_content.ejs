@@ -29,10 +29,35 @@
 <br/><br/>
 
 <!-- Progress Bar -->
-<div class="row progress">
-  <% var percent_correct = (Number(session.user_progress.correct_attempts)/Number(session.user_progress.
-  total_attempts)) * 100; %>
-  <div class="progress-bar" style="width: <%= percent_correct %>%"></div>
+<div class="row">
+  <div class="col-xs-11">
+    <div class="row progress">
+      <% var percent_correct = (Number(session.user_progress.correct_attempts)/Number(session.user_progress.total_attempts)) * 100; 
+        if (Number(session.user_progress.total_attempts) === 0) { percent_correct = 0; }%>
+      <div class="progress-bar" style="width: <%= percent_correct %>%"></div>
+    </div>
+  </div>
+  
+  <!-- Accuracy Counter -->
+  <div class="col-xs-1 center-block">
+    <p><%= percent_correct %>%</p>
+  </div>
+</div>
+
+<div class="row charity-info">
+
+  <div class="col-md-2 col-xs-2"></div>
+  
+  <div class="col-md-6 col-xs-6">
+    <p style="float:right;">Sponsored by <a href="<%= charity.link %>" parent="_blank"><%= charity.name %></a></p>
+  </div>
+  
+  <div class="col-md-2 col-xs-2">
+    <img height="50px" src="<%= charity.logo %>" />
+  </div>
+  
+  <div class="col-md-2 col-xs-2"></div>
+
 </div>
 
 <br/><br/>

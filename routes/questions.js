@@ -1,15 +1,16 @@
 // Load the questions model
 var question = require("../models/question.js");
 var user = require("../models/user.js");
+var charities = require("../models/charities.js");
+var utils = require("../models/utils.js");
 
 module.exports = function(app, passport) {
 
-  app.get("/questions", isLoggedIn, function(req, res) {
-    console.log(req.session);
-    // get all of the questions from this charity
-    question.findByCharityID(function(err, rows) {
-      
-      res.render("questions", { questions: rows, form_name : "Add Question", form_action : "/questions", session: req.session, user: req.user, message: req.flash });
+  app.get("/questions", utils.charityIsLoggedIn, function(req, res) {
+
+    // get all of the questions from this charity and display them in a table
+    question.findByCharityID(req.user.charity_id, function(err, rows) {
+      return res.render("questions", {session: req.session, user: req.user, charity_questions: rows, form_action: "/questions", message: req.flash("questionMessage")});
     });
   });
 
@@ -21,7 +22,7 @@ module.exports = function(app, passport) {
         return res.redirect("/questions");
       }
       
-      res.render("edit_question", { question : result, form_name : "Edit Question", form_action : "/edit_question", session:req.session, user: req.user });
+      res.render("edit_question", { question : result, form_action : "/edit_question", session:req.session, user: req.user });
     });  
   });
 
@@ -37,7 +38,6 @@ module.exports = function(app, passport) {
 
   // Updates (and possibly deletes) the provided question
   app.post("/edit_question", function(req, res) {
-    console.log("Updating question: ", req.body);
     
     // delete this question
     if (req.body.delete_question != undefined) {
@@ -55,9 +55,6 @@ module.exports = function(app, passport) {
   // Renders the home page with a random question from the database
   // Load the home page
   app.get("/", function(req, res) {
-
-    console.log("Session: ", req.session);
-    console.log("User: ", req.user);
 
     if (req.session === undefined || req.session.lastQuestionID === undefined) {
       req.session.lastQuestionID = -1;
@@ -81,13 +78,18 @@ module.exports = function(app, passport) {
         req.session.lastQuestionID = rows[index].question_id;
         req.session.save();
         
-        res.render("index", { question: rows[index], session: req.session, user: req.user });
+        charities.findByID(rows[index].charity_id, function(err, charity_info) {
+        
+          if (err) {
+            res.redirect("/");
+          }
+          res.render("index", { question: rows[index], session: req.session, user: req.user, charity: charity_info });
+        });
     });
   });
 
   // Called in game.js after a user clicks on an answer
   app.get("/update_analytics/:question_id/:correct", function(req, res) {
-    console.log("Updating analytics for: ", req.params);
     
     if (req.session.user_progress === undefined) {
       req.session.user_progress.total_attempts = 0;
@@ -112,14 +114,4 @@ module.exports = function(app, passport) {
     }
 
   });
-}
-
-function isLoggedIn(req, res, next) {
-  
-  if (req.isAuthenticated() && req.user.charity_id) {
-    return next(req, res);
-  }
-  
-  console.log("You are not allowed to access this page!");
-  res.redirect("/");
 }
