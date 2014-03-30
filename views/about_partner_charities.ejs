@@ -10,8 +10,10 @@
     <br/>
     <h1>Our Partners</h1>
 
+    <p>Comment to be removed: hover over photos (will be charity logo) and check out the link they go to. Without http:// tries to go to localhost .. hmm.</p>
+
     <% for (var i = 0; i < charities.length; i++) { %>
-        <p><%= charities[i].link %></p>
+        <!-- <p><%= charities[i].link %></p> -->
         <a class="sponsor" href="<%= charities[i].link %>" style="background-image:url('http://www.seomofo.com/downloads/new-google-logo-knockoff.png')"></a>
     <% } %>
 
