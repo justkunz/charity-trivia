@@ -1,29 +1,62 @@
 <script type="text/javascript" src="js/game.js"></script>
 <div class="content center-block" style="width:70%">
 
+<% if (message.length > 0) { 
+    if (message == "correct") { %>
+  
+      <div class="alert alert-success">Correct!</div>
+    <% } else { %>
+
+      <div class="alert alert-danger">Incorrect!</div>
+<% } } %>
+
+<%
+function hashStr(str){
+    var hash = 0;
+    if (str.length == 0) return hash;
+    for (i = 0; i < str.length; i++) {
+        char = str.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
+%>
+
 <h2 class="text-center" style="color:#555555"><%= question.question %></h2>
 <br/>
 
 <div class="row center-block">
+
   <div class="col-xs-3">
-    <button type="button" class="btn btn-primary center-block" onclick="answered(true, <%= question.question_id %>); return false;">
-      <%= question.answer %>
-    </button>
+    <a href="/<%= question.question_id %>/<%= hashStr(question.answer_1) %>">
+      <button type="button" class="btn btn-primary center-block">
+        <%= question.answer_1 %>
+      </button>
+    </a>
+  </div>
+  
+  <div class="col-xs-3">
+        <a href="/<%= question.question_id %>/<%= hashStr(question.answer_2) %>">
+      <button type="button" class="btn btn-primary center-block">
+        <%= question.answer_2 %>
+      </button>
+    </a>
+  </div>
+  
+  <div class="col-xs-3">
+    <a href="/<%= question.question_id %>/<%= hashStr(question.answer_3) %>">
+      <button type="button" class="btn btn-primary center-block">
+        <%= question.answer_3 %>
+      </button>
+    </a>
   </div>
   <div class="col-xs-3">
-    <button type="button" class="btn btn-primary center-block" onclick="answered(false, <%= question.question_id %>); return false;">
-      <%= question.fake_answer_1 %>
-    </button>
-  </div>
-  <div class="col-xs-3">
-    <button type="button" class="btn btn-primary center-block" onclick="answered(false, <%= question.question_id %>); return false;">
-      <%= question.fake_answer_2 %>
-    </button>
-  </div>
-  <div class="col-xs-3">
-    <button type="button" class="btn btn-primary center-block" onclick="answered(false, <%= question.question_id %>); return false;">
-      <%= question.fake_answer_3 %>
-    </button>
+    <a href="/<%= question.question_id %>/<%= hashStr(question.answer_4) %>">
+      <button type="button" class="btn btn-primary center-block">
+        <%= question.answer_4 %>
+      </button>
+    </a>
   </div>
 </div>
 <br/><br/>
@@ -40,23 +73,21 @@
   
   <!-- Accuracy Counter -->
   <div class="col-xs-1 center-block">
-    <p><%= percent_correct %>%</p>
+    <p><%= Number(session.user_progress.correct_attempts) %>/<%= Number(session.user_progress.total_attempts) %></p>
   </div>
 </div>
 
 <div class="row charity-info">
-
-  <div class="col-md-2 col-xs-2"></div>
   
   <div class="col-md-6 col-xs-6">
     <p style="float:right;">Sponsored by <a href="<%= charity.link %>" parent="_blank"><%= charity.name %></a></p>
   </div>
   
-  <div class="col-md-2 col-xs-2">
+  <div class="col-md-6 col-xs-2">
+    <div class="center-block">
     <img height="50px" src="<%= charity.logo %>" />
+    </div>
   </div>
-  
-  <div class="col-md-2 col-xs-2"></div>
 
 </div>
 

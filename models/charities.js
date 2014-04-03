@@ -59,17 +59,35 @@ exports.uploadLogo = function(logo, next) {
       }
 
       // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
-      fs.unlink(tmp_path, function() {
+      fs.unlink(tmp_path, function(err) {
 
           if (err) {
             utils.printError(err, "Charities.uploadLogo Unlink: ");
           }
 
           console.log("File uploaded to: " + target_path + " - " + logo.size + " bytes");
-          return next(err, target_path);
+          return next(null, target_path);
       });
   });
 };
+
+exports.removeLogo = function(old_logo_path, next) {
+  console.log("Removing: ", old_logo_path);
+  if (old_logo_path === undefined || old_logo_path === null || old_logo_path === "") {
+    return next(null);
+  }
+  
+  // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+  fs.unlink(("./public/" + old_logo_path), function(err) {
+
+      if (err) {
+        utils.printError(err, "Charities.removeLogo Unlink: ");
+      }
+
+      console.log("File deleted: " + old_logo_path);
+      return next(err);
+  });
+}
 
 // Find a charity record by charity_id
 exports.findByID = function(charity_id, next) {

@@ -59,12 +59,15 @@ module.exports = function(app, passport) {
       }
     }
     
+    charities.removeLogo(req.user.logo, function(err) {
+    
+    });
+    
     // update the logo, then update the rest of the params
     charities.uploadLogo(req.files.logo, function(err, logo_path) {
 
       // don't continue if there was an error with the logo
       if (err !== null) {
-        console.log(err);
         req.flash("charityProfileMessage", "There was an error uploading your logo. Please try again.");
         return res.redirect("/edit_charity_profile");
       }
