@@ -1,14 +1,16 @@
 <script type="text/javascript" src="js/game.js"></script>
 <div class="content center-block" style="width:70%">
 
-<% if (message.length > 0) { 
-    if (message == "correct") { %>
-  
-      <div class="alert alert-success">Correct!</div>
-    <% } else { %>
+<div class="row">
+  <% if (message.length > 0) { 
+      if (message == "correct") { %>
+    
+        <div class="alert alert-success">Correct!</div>
+      <% } else { %>
 
-      <div class="alert alert-danger">Incorrect!</div>
-<% } } %>
+        <div class="alert alert-danger">Incorrect!</div>
+  <% } } %>
+</div>
 
 <%
 function hashStr(str){
@@ -23,8 +25,10 @@ function hashStr(str){
 }
 %>
 
-<h2 class="text-center" style="color:#555555"><%= question.question %></h2>
-<br/>
+<div class="row">
+  <h2 class="text-center" style="color:#555555"><%= question.question %></h2>
+  <br/>
+</div>
 
 <div class="row center-block">
 
@@ -92,5 +96,7 @@ function hashStr(str){
 </div>
 
 <br/><br/>
-<div id="feedback"></div>
+<div class="row center-block" id="feedback">
+  <img class="center-block" src="img/fake_ad.png" width="90%"/>
+</div>
 </div>
