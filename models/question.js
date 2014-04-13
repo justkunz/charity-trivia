@@ -1,3 +1,6 @@
+// username: charitytrivia
+// password: cheeseburger
+
 // Connect to the db
 var query = require("pg-query");
 query.connectionParameters = "postgres://127.0.0.1:5432/charity_trivia";
