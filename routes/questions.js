@@ -6,6 +6,51 @@ var utils = require("../models/utils.js");
 
 module.exports = function(app, passport) {
 
+  // Renders the home page with a random question from the database
+  // Load the home page
+  app.get("/", function(req, res) {
+
+    if (req.session === undefined || req.session.previouslyCorrectQuestions === undefined || req.session.lastQuestionID === undefined) {
+      req.session.previouslyCorrectQuestions = [];
+      req.session.lastQuestionID = -1;
+    }
+    
+    if (req.session.user_progress === undefined) {
+      req.session.user_progress = {};
+      req.session.user_progress.total_attempts = 0;
+      req.session.user_progress.correct_attempts = 0;
+    }
+    
+    question.getAllQuestions(function(err, rows) {
+        // render a random question that is not the same as the last question asked
+        if (rows === undefined || rows === null) {
+            res.render("index", { question: null, session: req.session, user: req.user, charity: null, message: req.flash("gameMessage") });
+        }
+        var num_rows = rows.length;
+        var index = Math.floor(Math.random() * (num_rows));
+        
+        while (req.session.previouslyCorrectQuestions.indexOf(rows[index].question_id) !== -1 || req.session.lastQuestionID == rows[index].question_id) {
+          index = Math.floor(Math.random() * (num_rows));
+        }
+        
+        // store the id of the question that was asked last
+        req.session.lastQuestionID = rows[index].question_id;
+        req.session.save();
+        
+        charities.findByID(rows[index].charity_id, function(err, charity_info) {
+        
+          if (err) {
+            res.redirect("/");
+          }
+          
+          // mix up the answers & distractors
+          question_info = reorder_answers(rows[index]);
+          
+          res.render("index", { question: question_info, session: req.session, user: req.user, charity: charity_info, message: req.flash("gameMessage") });
+        });
+    });
+  });
+  
   app.get("/questions", utils.charityIsLoggedIn, function(req, res) {
 
     // get all of the questions from this charity and display them in a table
@@ -49,48 +94,6 @@ module.exports = function(app, passport) {
     // update the question in the database
     question.updateQuestion(req.body, function(err) {
           res.redirect("/questions");
-    });
-  });
-
-  // Renders the home page with a random question from the database
-  // Load the home page
-  app.get("/", function(req, res) {
-
-    if (req.session === undefined || req.session.previouslyCorrectQuestions === undefined || req.session.lastQuestionID === undefined) {
-      req.session.previouslyCorrectQuestions = [];
-      req.session.lastQuestionID = -1;
-    }
-    
-    if (req.session.user_progress === undefined) {
-      req.session.user_progress = {};
-      req.session.user_progress.total_attempts = 0;
-      req.session.user_progress.correct_attempts = 0;
-    }
-    
-    question.getAllQuestions(function(err, rows) {
-        // render a random question that is not the same as the last question asked
-        var num_rows = rows.length;
-        var index = Math.floor(Math.random() * (num_rows));
-        
-        while (req.session.previouslyCorrectQuestions.indexOf(rows[index].question_id) !== -1 || req.session.lastQuestionID == rows[index].question_id) {
-          index = Math.floor(Math.random() * (num_rows));
-        }
-        
-        // store the id of the question that was asked last
-        req.session.lastQuestionID = rows[index].question_id;
-        req.session.save();
-        
-        charities.findByID(rows[index].charity_id, function(err, charity_info) {
-        
-          if (err) {
-            res.redirect("/");
-          }
-          
-          // mix up the answers & distractors
-          question_info = reorder_answers(rows[index]);
-          
-          res.render("index", { question: question_info, session: req.session, user: req.user, charity: charity_info, message: req.flash("gameMessage") });
-        });
     });
   });
   
