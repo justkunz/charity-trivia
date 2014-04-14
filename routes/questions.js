@@ -24,7 +24,7 @@ module.exports = function(app, passport) {
     question.getAllQuestions(function(err, rows) {
         // render a random question that is not the same as the last question asked
         if (rows === undefined || rows === null) {
-            res.render("index", { question: null, session: req.session, user: req.user, charity: null, message: req.flash("gameMessage") });
+            return res.render("index", { question: null, session: req.session, user: req.user, charity: null, message: req.flash("gameMessage") });
         }
         var num_rows = rows.length;
         var index = Math.floor(Math.random() * (num_rows));
