@@ -49,6 +49,6 @@ app.get("/about_partner_with_us", function(req, res) {
 });
 
 // launch the app
-app.listen(80);
+app.listen(process.env.PORT || 80);
 
 console.log('Server running at http://127.0.0.1:80/');
