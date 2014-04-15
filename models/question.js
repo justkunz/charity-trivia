@@ -1,9 +1,10 @@
 // username: charitytrivia
 // password: cheeseburger
+// psql -h aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com -d ebdb -U charitytrivia -p 5432 -W
 
 // Connect to the db
 var query = require("pg-query");
-query.connectionParameters = "postgres://Justine@127.0.0.1:5432/charity_trivia";
+query.connectionParameters = "postgres://charitytrivia:cheeseburger@aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com:5432/ebdb";
 
 var utils = require("../models/utils.js");
 
@@ -22,7 +23,7 @@ exports.addQuestion = function(params, next) {
 exports.findByID = function(question_id, next) {
   query("SELECT * FROM questions WHERE question_id=$1", [ question_id ], function(err, rows, result) {
         
-      if (rows.length == 0) {
+      if (rows === undefined || rows.length == 0) {
         console.log("Question.findByID Error: No matching question for question_id ", question_id);
         return next(err, null);
       }

@@ -1,6 +1,6 @@
 // connect to the postgres db
 var query = require("pg-query");
-query.connectionParameters = "postgres://127.0.0.1:5432/charity_trivia";
+query.connectionParameters = "postgres://charitytrivia:cheeseburger@aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com:5432/charity_trivia";
 
 var utils = require("../models/utils.js");
 

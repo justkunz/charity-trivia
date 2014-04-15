@@ -1,18 +1,21 @@
 {
-    "name": "charity-trivia",
-    "description": "Charity Trivia Application",
-    "version": "0.0.1",
-    "engines": {
-        "node": "0.8.x",
-        "npm": "1.2.x"
-    },
-    "dependencies": {
-        "express": "3.2.x",
-        "ejs": "0.8.x",
-        "pg": "*"
-    },
-    "repository": {
-      "type" : "git",
-      "url" : "http://github.com/justkunz/charity-trivia/"
-    }
+  "name": "charity-trivia",
+  "description": "Charity Trivia Application",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "express": "~3.2.6",
+    "ejs": "~0.8.8",
+    "pg": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/justkunz/charity-trivia/"
+  }
 }

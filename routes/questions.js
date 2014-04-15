@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
   // Renders the home page with a random question from the database
   // Load the home page
   app.get("/", function(req, res) {
-
+    console.log("Working on it!");
     if (req.session === undefined || req.session.previouslyCorrectQuestions === undefined || req.session.lastQuestionID === undefined) {
       req.session.previouslyCorrectQuestions = [];
       req.session.lastQuestionID = -1;

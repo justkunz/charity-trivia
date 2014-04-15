@@ -1,6 +1,6 @@
 // Connect to the db
 var query = require("pg-query");
-query.connectionParameters = "postgres://aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com:5432/charity_trivia";
+query.connectionParameters = "postgres://charitytrivia:cheeseburger@aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com:5432/ebdb";
 
 var utils = require("../models/utils.js");
 
@@ -12,7 +12,7 @@ var wildlife_conservation_id = 4;
 // // create the questions table - if it does not exist 
 query("CREATE TABLE IF NOT EXISTS questions(question_id bigserial primary key, question text NOT NULL, answer varchar(64) NOT NULL, fake_answer_1 varchar(64) NOT NULL, fake_answer_2 varchar(64) NOT NULL, fake_answer_3 varchar(64) NOT NULL, charity_id bigint NOT NULL, total_attempts bigint NOT NULL, correct_attempts bigint NOT NULL)", function(err, rows, result) {
       
-  utils.printError(err);
+  utils.printError(err, "Question Table Create Error: ");
 
   // insert one row into questions
   query("INSERT INTO questions(question, answer, fake_answer_1, fake_answer_2, fake_answer_3, charity_id, total_attempts, correct_attempts) values($1, $2, $3, $4, $5, $6, $7, $8)", ['Rhinos are most commonly poached for which feature?', 'Horn', 'Skin', 'Feathers', 'Urine', animal_welfare_id, 0, 0], function(err, rows, result) {
@@ -60,6 +60,6 @@ query("CREATE TABLE IF NOT EXISTS questions(question_id bigserial primary key, q
   });
 
   query("SELECT * FROM questions", function(err, rows, result) {
-        utils.printError(rows);
+        console.log("Questions: ", rows);
   });
 });
