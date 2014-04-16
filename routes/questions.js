@@ -9,7 +9,7 @@ module.exports = function(app, passport) {
   // Renders the home page with a random question from the database
   // Load the home page
   app.get("/", function(req, res) {
-    console.log("Working on it!");
+
     if (req.session === undefined || req.session.previouslyCorrectQuestions === undefined || req.session.lastQuestionID === undefined) {
       req.session.previouslyCorrectQuestions = [];
       req.session.lastQuestionID = -1;
@@ -24,7 +24,8 @@ module.exports = function(app, passport) {
     question.getAllQuestions(function(err, rows) {
         // render a random question that is not the same as the last question asked
         if (rows === undefined || rows === null) {
-            return res.render("index", { question: null, session: req.session, user: req.user, charity: null, message: req.flash("gameMessage") });
+            console.log("No questions found!");
+            return res.render("navbar", { session: req.session, user: req.user, charity: null, message: req.flash("gameMessage") });
         }
         var num_rows = rows.length;
         var index = Math.floor(Math.random() * (num_rows));
