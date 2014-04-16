@@ -2,17 +2,20 @@
   "name": "charity-trivia",
   "description": "Charity Trivia Application",
   "version": "0.0.1",
+  "author": "Justine",
   "scripts": {
     "start": "node app.js"
-  },
-  "engines": {
-    "node": "0.8.x",
-    "npm": "1.2.x"
   },
   "dependencies": {
     "express": "~3.2.6",
     "ejs": "~0.8.8",
-    "pg": "*"
+    "bcrypt-nodejs": "*",
+    "connect-flash": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "pg": "*",
+    "pg-query": "*",
+    "jade": "*"
   },
   "repository": {
     "type": "git",
