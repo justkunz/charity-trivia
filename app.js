@@ -1,3 +1,5 @@
+// ssh -i node_key.pem ec2-user@54.84.114.160
+
 var express = require("express");
 var app = express();
 

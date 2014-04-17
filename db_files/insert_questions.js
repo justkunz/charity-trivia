@@ -1,8 +1,10 @@
+// psql -h aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com -d ebdb -U charitytrivia -p 5432 -W
+
+var utils = require("../models/utils.js");
+
 // Connect to the db
 var query = require("pg-query");
 query.connectionParameters = "postgres://charitytrivia:cheeseburger@aa1s4508xmf19hs.cqcp9ut8xkl3.us-east-1.rds.amazonaws.com:5432/ebdb";
-
-var utils = require("../models/utils.js");
 
 var animal_welfare_id = 1;
 var friends_of_animals_id = 2;
@@ -60,6 +62,6 @@ query("CREATE TABLE IF NOT EXISTS questions(question_id bigserial primary key, q
   });
 
   query("SELECT * FROM questions", function(err, rows, result) {
-        console.log("Questions: ", rows);
+        console.log("Now the database has ", rows.length, " questions");
   });
 });
