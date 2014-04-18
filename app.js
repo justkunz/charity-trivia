@@ -24,6 +24,7 @@ app.configure(function(){
   app.use(passport.session());      // persistent login sessions
   app.use(flash());                 // use flash messages stored in the sesion
 
+  app.use(express.favicon("public/img/favicon.ico"));
 });
 
 // This is where the homepage, questions page, edit questions page live

@@ -5,11 +5,21 @@
   <% if (message.length > 0) { 
       if (message == "correct") { %>
     
-        <div class="alert alert-success">Correct!</div>
+        <div class="alert alert-success">
+          <strong>Correct!</strong>
       <% } else { %>
-
-        <div class="alert alert-danger">Incorrect!</div>
-  <% } } %>
+        <div class="alert alert-danger">
+          <strong>Incorrect!</strong>
+      <% } %> 
+  
+      <% if (answer_text != null && answer_text != "") { %>
+        <%= answer_text %>
+      <% } if (link != null && link != "") { %>
+        <a href="<%= link %>" target="_blank">Learn More!</a>
+      <% } %>
+      
+        </div>
+  <% } %>
 </div>
 
 <%
@@ -83,13 +93,16 @@ function hashStr(str){
 
 <div class="row charity-info">
   
-  <div class="col-md-6 col-xs-6">
-    <p class="center-block" style="text-align:center;">Sponsored by <a href="<%= charity.link %>" parent="_blank"><%= charity.name %></a></p>
-  </div>
+    <p class="center-block" style="text-align:center;">Sponsored by <a href="<%= charity.link %>" parent="_blank">
+        <% if (charity.logo != null) { %>
+          <img height="50px" class="center-block" src="<%= charity.logo %>" />
+        <% } else { %>
+          <%= charity.name %>
+        <% }%>
+      </a></p>
   
   <div class="col-md-6 col-xs-2">
     <div class="center-block">
-    <img height="50px" class="center-block" src="<%= charity.logo %>" />
     </div>
   </div>
 

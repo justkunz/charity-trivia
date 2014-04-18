@@ -45,3 +45,21 @@
     <p class="help-block">Incorrect Answer</p>
   </div>
 </div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="answer_descriptor">Answer Descriptor</label>
+  <div class="controls">
+    <input id="answer_descriptor" name="answer_descriptor" type="text" placeholder="" class="form-control " <%if (locals.question) { %>value="<%= question.answer_descriptor %>"<% } %>>
+    <p class="help-block">(Optional) The text displayed after this question is answerd, meant to explain the correct answer. Do not include "Correct" or "Incorrect".</p>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label" for="link">Learn More Link</label>
+  <div class="controls">
+    <input id="link" name="link" type="text" placeholder="" class="form-control" <%if (locals.question) { %>value="<%= question.link %>"<% } %>>
+    <p class="help-block">(Optional) A link to a webpage where the user can learn more about the content of this question.</p>
+  </div>
+</div>

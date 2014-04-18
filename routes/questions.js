@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
           // mix up the answers & distractors
           question_info = reorder_answers(rows[index]);
           
-          res.render("index", { question: question_info, session: req.session, user: req.user, charity: charity_info, message: req.flash("gameMessage") });
+          res.render("index", { question: question_info, session: req.session, user: req.user, charity: charity_info, message: req.flash("gameMessage"), answer_text: req.flash("answerText"), link: req.flash("learnMoreLink") });
         });
     });
   });
@@ -103,6 +103,9 @@ module.exports = function(app, passport) {
 
     question.findByID(req.params.question_id, function(err, question_info) {
     
+      req.flash("answerText", question_info.answer_descriptor);
+      req.flash("learnMoreLink", question_info.link);
+      
       var correct = "";
       
       if (req.params.user_answer == hashStr(question_info.answer)) {
