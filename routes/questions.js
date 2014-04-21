@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
     });
   });
 
-  app.get("/edit_question", function(req, res) {
+  app.get("/edit_question", utils.charityIsLoggedIn, function(req, res) {
     // find the question to edit, then render the edit questions page
     question.findByID(req.param("question_id"), function(err, result) {
       if (err) {
@@ -72,7 +72,7 @@ module.exports = function(app, passport) {
     });  
   });
 
-  app.post("/questions", function(req, res) {
+  app.post("/questions", utils.charityIsLoggedIn, function(req, res) {
     // insert one row into questions
     question.addQuestion(req.body, function(err) {
       if (err) {
@@ -83,7 +83,7 @@ module.exports = function(app, passport) {
   });
 
   // Updates (and possibly deletes) the provided question
-  app.post("/edit_question", function(req, res) {
+  app.post("/edit_question", utils.charityIsLoggedIn, function(req, res) {
     
     // delete this question
     if (req.body.delete_question != undefined) {
@@ -105,6 +105,11 @@ module.exports = function(app, passport) {
     
       req.flash("answerText", question_info.answer_descriptor);
       req.flash("learnMoreLink", question_info.link);
+      
+      if (question_info.answer_descriptor == null) {
+        var answer_descriptor = question_info.question + " Answer: " + question_info.answer;
+        req.flash("answerText", answer_descriptor);
+      }
       
       var correct = "";
       
