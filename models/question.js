@@ -11,7 +11,7 @@ var utils = require("../models/utils.js");
 // Insert a new question
 // TODO: change the charity_id to the req.body, then replace the constant here
 exports.addQuestion = function(params, next) {
-  query("INSERT INTO questions(question, answer, fake_answer_1, fake_answer_2, fake_answer_3, charity_id, total_attempts, correct_attempts) values($1, $2, $3, $4, $5, $6, $7, $8)", [params.question, params.answer, params.fake_answer_1, params.fake_answer_2, params.fake_answer_3, params.charity_id, 0, 0], function(err, rows, result) {
+  query("INSERT INTO questions(question, answer, fake_answer_1, fake_answer_2, fake_answer_3, charity_id, total_attempts, correct_attempts, answer_descriptor, link) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)", [params.question, params.answer, params.fake_answer_1, params.fake_answer_2, params.fake_answer_3, params.charity_id, 0, 0, params.answer_descriptor, params.link], function(err, rows, result) {
   
         utils.printError(err);
         return next(err);
@@ -51,7 +51,7 @@ exports.getAllQuestions = function(next) {
 
 // Update a question record
 exports.updateQuestion = function(params, next) {
-  query("UPDATE questions SET question=$1, answer=$2, fake_answer_1=$3, fake_answer_2=$4, fake_answer_3=$5, total_attempts=0, correct_attempts=0 WHERE question_id=$6", [params.question, params.answer, params.fake_answer_1, params.fake_answer_2, params.fake_answer_3, params.question_id], function(err, rows, result) {
+  query("UPDATE questions SET question=$1, answer=$2, fake_answer_1=$3, fake_answer_2=$4, fake_answer_3=$5, total_attempts=0, correct_attempts=0, answer_descriptor=$6, link=$7 WHERE question_id=$8", [params.question, params.answer, params.fake_answer_1, params.fake_answer_2, params.fake_answer_3, params.answer_descriptor, params.link, params.question_id], function(err, rows, result) {
   
     utils.printError(err, "Question.updateQuestion Error: ");
     return next(err);
