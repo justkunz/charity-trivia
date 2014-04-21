@@ -2,22 +2,22 @@
 <div class="content center-block" style="width:70%">
 
 <div class="row">
-  <% if (message.length > 0) { 
+  <% if (message.length > 0) {
       if (message == "correct") { %>
-    
+
         <div class="alert alert-success">
           <strong>Correct!</strong>
       <% } else { %>
         <div class="alert alert-danger">
           <strong>Incorrect!</strong>
-      <% } %> 
-  
+      <% } %>
+
       <% if (answer_text != null && answer_text != "") { %>
         <%= answer_text %>
       <% } if (link != null && link != "") { %>
         <a href="<%= link %>" target="_blank">Learn More!</a>
       <% } %>
-      
+
         </div>
   <% } %>
 </div>
@@ -49,7 +49,7 @@ function hashStr(str){
       </button>
     </a>
   </div>
-  
+
   <div class="col-xs-3">
         <a href="/<%= question.question_id %>/<%= hashStr(question.answer_2) %>">
       <button type="button" class="btn btn-primary center-block">
@@ -57,7 +57,7 @@ function hashStr(str){
       </button>
     </a>
   </div>
-  
+
   <div class="col-xs-3">
     <a href="/<%= question.question_id %>/<%= hashStr(question.answer_3) %>">
       <button type="button" class="btn btn-primary center-block">
@@ -86,7 +86,7 @@ function hashStr(str){
       <div class="progress-bar progress-bar-danger" style="width: <%= percent_incorrect %>%"></div>
     </div>
   </div>
-  
+
   <!-- Accuracy Counter -->
   <div class="col-xs-1 center-block">
     <p><%= Number(session.user_progress.correct_attempts) %>/<%= Number(session.user_progress.total_attempts) %></p>
@@ -94,15 +94,14 @@ function hashStr(str){
 </div>
 
 <div class="row charity-info">
-  
     <p class="center-block lead" style="text-align:center;">Sponsored by <a href="<%= charity.link %>" target="_blank">
         <% if (charity.logo != null) { %>
-          <img height="50px" class="center-block" src="<%= charity.logo %>" />
+          <img min-height="50px" min-width="100px" class="center-block" src="<%= charity.logo %>" />
         <% } else { %>
           <%= charity.name %>
         <% }%>
       </a></p>
-  
+
   <div class="col-md-6 col-xs-2">
     <div class="center-block">
     </div>
