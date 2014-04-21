@@ -32,3 +32,8 @@ body {
   opacity:1;
   -webkit-filter:grayscale(0%);
 }
+
+.crop {
+  height: 300px;
+  overflow: hidden;
+}
