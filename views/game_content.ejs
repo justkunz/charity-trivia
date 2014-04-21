@@ -79,9 +79,11 @@ function hashStr(str){
 <div class="row">
   <div class="col-xs-11">
     <div class="row progress">
-      <% var percent_correct = (Number(session.user_progress.correct_attempts)/Number(session.user_progress.total_attempts)) * 100; 
-        if (Number(session.user_progress.total_attempts) === 0) { percent_correct = 0; }%>
-      <div class="progress-bar" style="width: <%= percent_correct %>%"></div>
+      <% var percent_correct = (Number(session.user_progress.correct_attempts)/Number(session.user_progress.total_attempts)) * 100;
+        var percent_incorrect = 100 - percent_correct;
+        if (Number(session.user_progress.total_attempts) === 0) { percent_correct = 0; percent_incorrect = 0; }%>
+      <div class="progress-bar progress-bar-success" style="width: <%= percent_correct %>%"></div>
+      <div class="progress-bar progress-bar-danger" style="width: <%= percent_incorrect %>%"></div>
     </div>
   </div>
   
@@ -93,7 +95,7 @@ function hashStr(str){
 
 <div class="row charity-info">
   
-    <p class="center-block" style="text-align:center;">Sponsored by <a href="<%= charity.link %>" parent="_blank">
+    <p class="center-block lead" style="text-align:center;">Sponsored by <a href="<%= charity.link %>" target="_blank">
         <% if (charity.logo != null) { %>
           <img height="50px" class="center-block" src="<%= charity.logo %>" />
         <% } else { %>
@@ -108,8 +110,8 @@ function hashStr(str){
 
 </div>
 
-<br/><br/>
-<div class="row center-block" id="feedback">
+<br/>
+<div class="row center-block">
   <img class="center-block" src="img/fake_ad.png" width="90%"/>
 </div>
 </div>

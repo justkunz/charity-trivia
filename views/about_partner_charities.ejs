@@ -9,15 +9,13 @@
   <div class="container">
     <br/>
     <h1>Our Partners</h1>
-
-    <p>Comment to be removed: hover over photos (will be charity logo) and check out the link they go to. Without http:// tries to go to localhost .. hmm.</p>
-
+    
     <br/>
 
     <% for (var i = 0; i < charities.length; i++) { %>
         <!-- <p><%= charities[i].link %></p> -->
       <div class="col-md-3 col-sm-4 col-xs-6">
-        <a class="sponsor" href="<%= charities[i].link %>" style="background-image:url('<%= charities[i].logo %>')">
+        <a target="_blank" class="sponsor" href="<%= charities[i].link %>" style="background-image:url('<%= charities[i].logo %>')">
           <% if (!charities[i].logo){ %>
             <h3><%= charities[i].name %></h3>
           <% } %>
